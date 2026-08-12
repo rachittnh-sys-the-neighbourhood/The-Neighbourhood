@@ -43,11 +43,6 @@ export default function Welcome() {
             children.
           </p>
 
-          <p className="type-body-regular mt-md max-w-measure text-slate-blue">
-            Not a school. Not an app. A neighbourhood — the warm spaces, the
-            familiar faces, and the quiet guidance that used to come with
-            living close to people who knew your child.
-          </p>
         </div>
 
         <div className={`reveal ${inView ? "in-view" : ""} mx-auto w-full max-w-measure-sm`} data-delay="2">

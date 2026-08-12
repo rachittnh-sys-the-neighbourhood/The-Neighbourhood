@@ -25,10 +25,11 @@ import Faq from "../components/v3/Faq.jsx";
  * An edition is nothing more than a wrapper class that redefines design
  * tokens for its subtree (see src/index.css), plus the webfont it needs.
  *
- *   typekit — /type   the refined brand palette, set in sama-latin
+ *   typekit — "/"   the refined brand palette, set in sama-latin.
  *
- * "/" carries no wrapper class: it serves src/legacy, a copy of the
- * design that is live in production, rendered from the root palette.
+ * This used to preview at /type alongside the old src/legacy design at
+ * "/". It's now what "/" itself serves — src/legacy was retired — so
+ * basePath is "" and every link below resolves to a root path directly.
  */
 const EDITIONS = {
   typekit: {
@@ -36,7 +37,7 @@ const EDITIONS = {
     // sama-latin type from .edition-typekit. They set disjoint tokens,
     // so neither wins over the other.
     className: "edition-v2 edition-typekit",
-    basePath: "/type",
+    basePath: "",
     stylesheet: "https://use.typekit.net/gzw2wee.css",
   },
 };
@@ -84,7 +85,7 @@ export default function Edition({ edition = "typekit", page = "home" }) {
     <div
       className={`${config.className} min-h-screen overflow-x-clip bg-cream-peach`}
     >
-      <NavbarV3 onJoin={openWaitlist} links={links} homePath={basePath} />
+      <NavbarV3 onJoin={openWaitlist} links={links} homePath={basePath || "/"} />
 
       <main className={isHome ? undefined : "pt-3xl"}>
         {isHome && (
