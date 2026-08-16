@@ -3,11 +3,13 @@
  * system's: `pill` radius (22px), Body Small Bold label, spacing-token
  * padding.
  *
- * The primary action carries the palette's terracotta rather than the
- * heading espresso. Those were one token until the palette refresh
- * separated "the darkest ink" from "the thing you should click", which
- * is what lets the CTA read as warm and inviting while headings stay
- * calm. White on terracotta is 6.0:1, deepening to 7.5:1 on hover.
+ * The primary action carries --color-primary, not --color-heading —
+ * kept as two separate tokens (rather than one shared "darkest ink"
+ * value) so an edition can let the CTA read as warm and inviting while
+ * headings stay calm, the way the site's terracotta scheme (still live
+ * at "/" — see .edition-legacy in index.css) does, without forcing
+ * every edition to make that same choice. /type's current palette sets
+ * them equal again; both stay comfortably above 4.5:1 white-on-primary.
  */
 const VARIANTS = {
   primary:

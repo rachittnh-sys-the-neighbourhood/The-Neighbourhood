@@ -23,7 +23,7 @@ import useScrollReveal from "../useScrollReveal.js";
  *
  * Refresh's dark card carries the same layered-atmosphere treatment as
  * the rest of the homepage (--gradient-dark in index.css) instead of the
- * two flat blob circles it used to — very low-opacity terracotta/amber
+ * two flat blob circles it used to — very low-opacity primary/accent
  * pooling into the charcoal, so it reads as depth on a dark surface, not
  * as a lit one. Legacy keeps its original flat blob circles untouched.
  *

@@ -25,26 +25,32 @@
   /* THESE values, which is the other reason they live here.             */
   /* ------------------------------------------------------------------ */
 
-  /* Action — the brand's own terracotta, unchanged. The Nestology-
-     inspired refresh (nestology-DESIGN.md) originally shifted this to a
-     plum-purple; that's been reverted on request — the brand colours
-     stay put, and the reference is followed for gradients and geometry
-     instead (see GRADIENT WASHES and Border Radius below). */
-  --color-primary: #a04a28;
-  --color-primary-hover: #8a3e20;
-  --color-secondary: #5f7566;
-  --color-accent: #d79a48;
+  /* Action — reverted to the original brand palette (the one live at
+     the-neighbourhood-eta.vercel.app): charcoal primary, brown/"warm
+     taupe" hover, sage secondary, soft-sand accent. /type went through
+     two colour experiments before landing here — a plum-purple lift
+     (nestology-DESIGN.md), then the site's more recent terracotta
+     refresh — and both are reverted now, on request, back to this
+     original scheme. Geometry, type and gradients (see Border Radius
+     and GRADIENT WASHES below) still follow the Nestology reference;
+     only colour reverts. "/" keeps the terracotta scheme unaffected —
+     see .edition-legacy, which now carries its own explicit colours
+     again since this root diverges from it. */
+  --color-primary: #2c2c2c;
+  --color-primary-hover: #8b7355;
+  --color-secondary: #a8b5a4;
+  --color-accent: #c9a58e;
 
   /* Surfaces */
-  --color-background: #fbf4ea;
-  --color-surface: #faf3e9;
-  --color-card: #fdf8f1;
+  --color-background: #e8ddd1;
+  --color-surface: #fdf2e5;
+  --color-card: #ffffff;
   --color-elevated: #ffffff;
-  --color-border: #e2d3c0;
+  --color-border: rgba(139, 115, 85, 0.22);
 
   /* Text */
-  --color-heading: #2b231c;
-  --color-body: #4a3f35;
+  --color-heading: #2c2c2c;
+  --color-body: #444748;
   --color-muted: #6b5d4f;
 
   /* Semantic */
@@ -58,37 +64,37 @@
      and used by the components under src/components/ui. */
   --color-deep-purple: var(--color-heading);
   --color-slate-blue: var(--color-body);
-  --color-warm-orange: var(--color-primary);
+  --color-warm-orange: #8b7355;
   --color-golden-amber: var(--color-accent);
   --color-cream-peach: var(--color-background);
-  --color-off-white: #f5ebdc;
+  --color-off-white: var(--color-surface);
   --color-lavender-mist: var(--color-border);
-  --color-light-amber: #f6e3c4;
+  --color-light-amber: #f9dbb7;
 
   /* The brand's own names, stated as literals so that alpha modifiers
      used across the markup (bg-charcoal/50, border-warm-taupe/15 ...)
      fold to the live site's exact colours. */
-  --color-charcoal: var(--color-heading);
-  --color-on-surface-variant: var(--color-body);
-  --color-warm-taupe: var(--color-primary);
-  --color-soft-sand: var(--color-accent);
-  --color-sage: #9bae9f;
-  --color-surface-cream: var(--color-background);
+  --color-charcoal: #2c2c2c;
+  --color-on-surface-variant: #444748;
+  --color-warm-taupe: #8b7355;
+  --color-soft-sand: #c9a58e;
+  --color-sage: #a8b5a4;
+  --color-surface-cream: #e8ddd1;
   --color-surface-container: #f7ece0;
-  --color-surface-container-low: var(--color-surface);
+  --color-surface-container-low: #fdf2e5;
   --color-surface-variant: #ece1d5;
   --color-surface-bright: #fff8f3;
-  --color-background-alt: var(--color-surface);
-  --color-secondary-container: var(--color-light-amber);
-  --color-logo-ink: var(--color-heading);
+  --color-background-alt: #f5f2e1;
+  --color-secondary-container: #f9dbb7;
+  --color-logo-ink: #4a3323;
 
-  /* A soft terracotta-tinted wash — the role Nestology's "purple tint"
-     surface plays (nestology-DESIGN.md: tag pills, badge backgrounds,
-     small section highlights), built from the brand's own accent colour
-     instead. A second tinted surface alongside light-amber, so tag
-     badges read as a distinct chip rather than borrowing the amber
-     panel colour. */
-  --color-accent-tint: #f5e7da;
+  /* A soft tinted wash — the role Nestology's "purple tint" surface
+     plays (nestology-DESIGN.md: tag pills, badge backgrounds, small
+     section highlights), derived from the brand's own accent colour so
+     it moves automatically with whichever palette is active, rather
+     than a literal that would need updating by hand every time the
+     palette does (as just happened once already). */
+  --color-accent-tint: color-mix(in srgb, var(--color-accent) 18%, var(--color-background));
 
   /* Spacing */
   --spacing-xs: 4px;
@@ -125,8 +131,8 @@
   /* Fonts — Poppins carries the whole hierarchy; Playfair Display
      italic is the emotional accent. Same pairing shape as the
      Nestology reference (Poppins + italic Playfair Display), on the
-     brand's own terracotta palette rather than theirs — the type and
-     geometry follow the reference, the colour doesn't. */
+     brand's own palette rather than theirs — the type and geometry
+     follow the reference, the colour doesn't. */
   --font-inter: "Poppins", system-ui, sans-serif;
   --font-playfair: "Playfair Display", serif;
 
@@ -521,14 +527,15 @@
 /* The Nestology reference (nestology-DESIGN.md) shades its backgrounds  */
 /* — large, soft, irregular colour fields with no hard edges, rather     */
 /* than a flat fill or a directional stripe — the effect this borrows,   */
-/* kept on the brand's own terracotta/amber rather than Nestology's      */
-/* purple. Every wash below is the same idea applied to a different      */
-/* base tone: 2–3 large ellipses, each fading to transparent well        */
-/* before its own edge, positioned so warmth pools unevenly rather than  */
-/* stepping across the section in one direction. Built from             */
+/* kept on the brand's own palette rather than Nestology's purple.       */
+/* Every wash below is the same idea applied to a different base tone:   */
+/* 2–3 large ellipses, each fading to transparent well before its own    */
+/* edge, positioned so warmth pools unevenly rather than stepping        */
+/* across the section in one direction. Built from                      */
 /* --color-primary/--color-accent/--color-heading via color-mix, so      */
 /* every wash moves with the palette automatically instead of needing    */
-/* its own literals.                                                     */
+/* its own literals — including across the /type ↔ "/" colour split,     */
+/* since each resolves those variables in its own scope.                */
 /*                                                                       */
 /* Applied across the whole homepage now, not just the hero, so nothing  */
 /* on the page reads as a flat block: --gradient-warm for the hero and   */
@@ -882,14 +889,13 @@
 /* ==================================================================== */
 /* LEGACY EDITION — "/", "/story", "/values", "/faq"                    */
 /*                                                                      */
-/* The bare root tokens above are this session's refresh: Poppins +     */
-/* italic Playfair Display, rounder geometry, soft shadows — see the    */
-/* Border Radius and Elevation comments above. Colour is NOT part of    */
-/* that refresh: the brand's terracotta palette lives at the root now   */
-/* too (see PALETTE above), so /type and "/" already share it and this  */
-/* class has nothing left to say about colour. What's left to restate   */
-/* is sama-latin type and the flatter, less-rounded geometry that was   */
-/* live before the refresh — scoped to the routes that still serve it.  */
+/* The bare root tokens above are /type's current palette — reverted to */
+/* the original charcoal/warm-taupe scheme (see PALETTE above), not the */
+/* terracotta refresh this site has actually been live with. So colour  */
+/* IS back in scope for this class: it restates the terracotta palette  */
+/* explicitly, plus sama-latin type and the flatter, less-rounded       */
+/* geometry that's been live all along — scoped to the routes that      */
+/* still serve it.                                                      */
 /* ==================================================================== */
 .edition-legacy {
   --font-sama: "sama-latin", ui-rounded, system-ui, sans-serif;
@@ -971,7 +977,70 @@
   --radius-card: 17px;
   --shadow-card: none;
   --shadow-badge: none;
+
+  /* Colour — the terracotta palette this site has actually been live
+     with, restated explicitly now that root has reverted to the
+     original charcoal/warm-taupe scheme instead. */
+  --color-primary: #a04a28; /* terracotta — 5.5:1 on bg, 6.0:1 under white */
+  --color-primary-hover: #8a3e20;
+  --color-secondary: #5f7566; /* deep sage — 5.0:1 under white */
+  --color-accent: #d79a48; /* marigold — decorative only, 2.4:1 on white */
+
+  --color-background: #fbf4ea;
+  --color-surface: #faf3e9;
+  --color-card: #fdf8f1;
+  --color-elevated: #ffffff;
+  --color-border: #e2d3c0;
+
+  --color-heading: #2b231c; /* 12.9:1 on bg */
+  --color-body: #4a3f35; /* 8.5:1 on bg */
+  --color-muted: #6b5d4f; /* 4.9:1 on bg */
+
+  --color-deep-purple: var(--color-heading);
+  --color-slate-blue: var(--color-body);
+  --color-warm-orange: var(--color-primary);
+  --color-golden-amber: var(--color-accent);
+  --color-cream-peach: var(--color-background);
+  --color-off-white: #f5ebdc;
+  --color-lavender-mist: var(--color-border);
+  --color-light-amber: #f6e3c4;
+
+  --color-charcoal: var(--color-heading);
+  --color-on-surface-variant: var(--color-body);
+  --color-warm-taupe: var(--color-primary);
+  --color-soft-sand: var(--color-accent);
+  --color-sage: #9bae9f;
+  --color-surface-cream: var(--color-background);
+  --color-surface-container-low: var(--color-surface);
+  --color-surface-variant: var(--color-surface);
+  --color-surface-bright: var(--color-elevated);
+  --color-background-alt: var(--color-surface);
+  --color-secondary-container: var(--color-light-amber);
+  --color-logo-ink: var(--color-heading);
+  --color-accent-tint: color-mix(in srgb, var(--color-accent) 18%, var(--color-background));
 }
+
+/* The page's base colour lives on <body>, which is an ANCESTOR of the
+   element carrying .edition-legacy — so it never sees this scope's
+   override and stays on the root's colour instead (#e8ddd1, now that
+   root has reverted away from terracotta). That's the single largest
+   surface on the page, showing through as a mismatched tone behind
+   everything and in the overscroll area. */
+body:has(.edition-legacy) {
+  background-color: #fbf4ea;
+}
+
+/* Alpha modifiers are folded to a literal at build time from the ROOT
+   palette, so unlike the solid utilities they do not re-resolve here.
+   Every one reachable from this edition is restated. */
+.edition-legacy .bg-cream-peach\/95 { background-color: rgba(251, 244, 234, 0.95); }
+.edition-legacy .bg-deep-purple\/50 { background-color: rgba(43, 35, 28, 0.5); }
+.edition-legacy .bg-soft-sand\/40 { background-color: rgba(215, 154, 72, 0.4); }
+.edition-legacy .bg-sage\/25 { background-color: rgba(155, 174, 159, 0.25); }
+.edition-legacy .bg-sage\/20 { background-color: rgba(155, 174, 159, 0.2); }
+.edition-legacy .bg-warm-taupe\/60 { background-color: rgba(160, 74, 40, 0.6); }
+.edition-legacy .border-warm-orange\/30 { border-color: rgba(160, 74, 40, 0.3); }
+.edition-legacy .text-slate-blue\/60 { color: rgba(74, 63, 53, 0.6); }
 
 /* .v3-serif has no separate face in sama-latin's single-family setting,
    so it leans on weight instead of a typeface change. */
