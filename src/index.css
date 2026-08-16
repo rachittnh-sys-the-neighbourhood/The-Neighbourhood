@@ -25,15 +25,15 @@
   /* THESE values, which is the other reason they live here.             */
   /* ------------------------------------------------------------------ */
 
-  /* Action — a warm plum-purple, in the spirit of the Nestology reference
-     (nestology-DESIGN.md): a saturated purple accent against a near-black
-     warm-plum text colour, with amber as the decorative highlight. Kept
-     warmer/less saturated than that reference's #9a5cc1 to stay calm
-     rather than vivid. */
-  --color-primary: #7d4f92;
-  --color-primary-hover: #63407a;
+  /* Action — the brand's own terracotta, unchanged. The Nestology-
+     inspired refresh (nestology-DESIGN.md) originally shifted this to a
+     plum-purple; that's been reverted on request — the brand colours
+     stay put, and the reference is followed for gradients and geometry
+     instead (see GRADIENT WASHES and Border Radius below). */
+  --color-primary: #a04a28;
+  --color-primary-hover: #8a3e20;
   --color-secondary: #5f7566;
-  --color-accent: #e0a53f;
+  --color-accent: #d79a48;
 
   /* Surfaces */
   --color-background: #fbf4ea;
@@ -43,9 +43,9 @@
   --color-border: #e2d3c0;
 
   /* Text */
-  --color-heading: #332b2f;
-  --color-body: #4a3f3f;
-  --color-muted: #6d5f5a;
+  --color-heading: #2b231c;
+  --color-body: #4a3f35;
+  --color-muted: #6b5d4f;
 
   /* Semantic */
   --color-success: #3f7a4f;
@@ -82,12 +82,13 @@
   --color-secondary-container: var(--color-light-amber);
   --color-logo-ink: var(--color-heading);
 
-  /* A soft lavender wash — Nestology's "purple tint" surface (nestology-
-     DESIGN.md), reserved the same way: tag pills, badge backgrounds,
-     small section highlights. A second tinted surface alongside
-     light-amber, so the purple accent reads as a real second colour in
-     the system rather than only a button/link colour. */
-  --color-purple-tint: #f1e7ef;
+  /* A soft terracotta-tinted wash — the role Nestology's "purple tint"
+     surface plays (nestology-DESIGN.md: tag pills, badge backgrounds,
+     small section highlights), built from the brand's own accent colour
+     instead. A second tinted surface alongside light-amber, so tag
+     badges read as a distinct chip rather than borrowing the amber
+     panel colour. */
+  --color-accent-tint: #f5e7da;
 
   /* Spacing */
   --spacing-xs: 4px;
@@ -123,8 +124,9 @@
 
   /* Fonts — Poppins carries the whole hierarchy; Playfair Display
      italic is the emotional accent. Same pairing shape as the
-     Nestology reference (Poppins + italic Playfair Display), on our
-     own warm-plum/amber palette rather than theirs. */
+     Nestology reference (Poppins + italic Playfair Display), on the
+     brand's own terracotta palette rather than theirs — the type and
+     geometry follow the reference, the colour doesn't. */
   --font-inter: "Poppins", system-ui, sans-serif;
   --font-playfair: "Playfair Display", serif;
 
@@ -516,27 +518,58 @@
 
 /* ==================================================================== */
 /* GRADIENT WASHES                                                      */
-/* The Nestology reference (nestology-DESIGN.md) pairs its warm plum/    */
-/* purple palette with soft gradient backgrounds rather than flat        */
-/* colour. Two washes, both built from the same three tokens so they     */
-/* can never drift from the rest of the palette: a quiet one for the     */
-/* hero (barely-there, sits behind footage), and a bolder one for the    */
-/* single closing CTA panel, which is the one place on the page it's     */
-/* allowed to be the loudest thing on screen.                            */
+/* The Nestology reference (nestology-DESIGN.md) shades its backgrounds  */
+/* — large, soft, irregular colour fields with no hard edges, rather     */
+/* than a flat fill or a directional stripe — the effect this borrows,   */
+/* kept on the brand's own terracotta/amber rather than Nestology's      */
+/* purple. Every wash below is the same idea applied to a different      */
+/* base tone: 2–3 large ellipses, each fading to transparent well        */
+/* before its own edge, positioned so warmth pools unevenly rather than  */
+/* stepping across the section in one direction. Built from             */
+/* --color-primary/--color-accent/--color-heading via color-mix, so      */
+/* every wash moves with the palette automatically instead of needing    */
+/* its own literals.                                                     */
+/*                                                                       */
+/* Applied across the whole homepage now, not just the hero, so nothing  */
+/* on the page reads as a flat block: --gradient-warm for the hero and   */
+/* the two Cream Peach sections (TheQuestion, GroundedIn — same base     */
+/* tone, same wash), --gradient-off-white for the four Off White "band"  */
+/* sections (Welcome, Today, The Long Arc, Contact), and --gradient-dark */
+/* for the closing Invitation card — the one place dark rather than      */
+/* cream, so its glows stay very low-opacity and read as depth on a      */
+/* dark surface, not as a lit one.                                       */
+/*                                                                       */
+/* background-image only accepts <image> values (gradients, url()) — no  */
+/* plain colour as a layer — so none of these list a base colour. They   */
+/* don't need to: every caller already carries its own background-colour */
+/* class (bg-cream-peach, bg-off-white, bg-charcoal, or inherits body{}'s */
+/* cream), which shows through wherever a wash fades to transparent.     */
 /* ==================================================================== */
 @theme {
-  --gradient-warm: linear-gradient(
-    135deg,
-    var(--color-background) 0%,
-    color-mix(in srgb, var(--color-primary) 10%, var(--color-background)) 45%,
-    color-mix(in srgb, var(--color-accent) 16%, var(--color-background)) 100%
-  );
-  --gradient-accent: linear-gradient(
-    120deg,
-    var(--color-primary) 0%,
-    color-mix(in srgb, var(--color-primary) 45%, var(--color-accent)) 55%,
-    var(--color-accent) 100%
-  );
+  /* The third ("shadow") layer in every wash below is deliberately kept
+     clear of BOTH the top and bottom edge, not just tucked into a
+     corner — --gradient-warm is reused by TheQuestion (see
+     GRADIENT_SURFACES in Section.jsx), which sits directly above
+     Today's wave divider (see WaveTop in Section.jsx). A flat-filled
+     shape with no gradient of its own; a glow sitting AT that seam,
+     even at the far bottom edge, shows through as an uneven, misshapen
+     patch right where the wave meets the section. A first attempt
+     moved the equivalent off-white shadow from the top edge to the
+     bottom edge and missed that the bottom is a seam too, for this
+     specific gradient — so here it's pulled in from both edges
+     instead, sized and faded tightly enough (18% vertical radius,
+     fading out by 65%) that it never reaches y=0% or y=100% at all. */
+  --gradient-warm:
+    radial-gradient(60% 55% at 12% 18%, color-mix(in srgb, var(--color-primary) 16%, transparent) 0%, transparent 72%),
+    radial-gradient(55% 60% at 88% 12%, color-mix(in srgb, var(--color-accent) 20%, transparent) 0%, transparent 70%),
+    radial-gradient(55% 18% at 50% 82%, color-mix(in srgb, var(--color-heading) 7%, transparent) 0%, transparent 65%);
+  --gradient-off-white:
+    radial-gradient(58% 60% at 88% 15%, color-mix(in srgb, var(--color-accent) 15%, transparent) 0%, transparent 72%),
+    radial-gradient(65% 55% at 8% 85%, color-mix(in srgb, var(--color-primary) 13%, transparent) 0%, transparent 70%),
+    radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, var(--color-heading) 5%, transparent) 0%, transparent 75%);
+  --gradient-dark:
+    radial-gradient(55% 60% at 85% 10%, color-mix(in srgb, var(--color-accent) 14%, transparent) 0%, transparent 70%),
+    radial-gradient(60% 55% at 10% 90%, color-mix(in srgb, var(--color-primary) 18%, transparent) 0%, transparent 72%);
 }
 
 @layer components {
@@ -544,8 +577,12 @@
     background-image: var(--gradient-warm);
   }
 
-  .bg-gradient-accent {
-    background-image: var(--gradient-accent);
+  .bg-gradient-off-white {
+    background-image: var(--gradient-off-white);
+  }
+
+  .bg-gradient-dark {
+    background-image: var(--gradient-dark);
   }
 }
 
@@ -823,13 +860,14 @@
 /* ==================================================================== */
 /* LEGACY EDITION — "/", "/story", "/values", "/faq"                    */
 /*                                                                      */
-/* The bare root tokens above are this session's refresh (Poppins,      */
-/* warm-plum/amber palette, rounder geometry, soft shadows — see the    */
-/* PALETTE and Border Radius comments above). That refresh now previews */
-/* at /type instead of replacing the live site outright, so this class  */
-/* restates exactly what was live before it — the terracotta palette    */
-/* and sama-latin type — scoped to the routes that still serve it. Content */
-/* verbatim from commit 7efb4f6, the last commit before the refresh.    */
+/* The bare root tokens above are this session's refresh: Poppins +     */
+/* italic Playfair Display, rounder geometry, soft shadows — see the    */
+/* Border Radius and Elevation comments above. Colour is NOT part of    */
+/* that refresh: the brand's terracotta palette lives at the root now   */
+/* too (see PALETTE above), so /type and "/" already share it and this  */
+/* class has nothing left to say about colour. What's left to restate   */
+/* is sama-latin type and the flatter, less-rounded geometry that was   */
+/* live before the refresh — scoped to the routes that still serve it.  */
 /* ==================================================================== */
 .edition-legacy {
   --font-sama: "sama-latin", ui-rounded, system-ui, sans-serif;
@@ -899,53 +937,6 @@
   line-height: var(--font-body-regular-line-height);
   letter-spacing: var(--font-body-regular-letter-spacing);
 
-  /* Action */
-  --color-primary: #a04a28; /* terracotta — 5.5:1 on bg, 6.0:1 under white */
-  --color-primary-hover: #8a3e20;
-  --color-secondary: #5f7566; /* deep sage — 5.0:1 under white */
-  --color-accent: #d79a48; /* marigold — decorative only, 2.4:1 on white */
-
-  /* Surfaces */
-  --color-background: #fbf4ea;
-  --color-surface: #faf3e9;
-  --color-card: #fdf8f1;
-  --color-elevated: #ffffff;
-  --color-border: #e2d3c0;
-
-  /* Text */
-  --color-heading: #2b231c; /* 12.9:1 on bg */
-  --color-body: #4a3f35; /* 8.5:1 on bg */
-  --color-muted: #6b5d4f; /* 4.9:1 on bg */
-
-  /* Semantic */
-  --color-success: #3f7a4f;
-  --color-warning: #9a6110;
-  --color-error: #b23a2e;
-
-  /* Structural role names */
-  --color-deep-purple: var(--color-heading);
-  --color-slate-blue: var(--color-body);
-  --color-warm-orange: var(--color-primary);
-  --color-golden-amber: var(--color-accent);
-  --color-cream-peach: var(--color-background);
-  --color-off-white: #f5ebdc;
-  --color-lavender-mist: var(--color-border);
-  --color-light-amber: #f6e3c4;
-
-  /* Brand names */
-  --color-charcoal: var(--color-heading);
-  --color-on-surface-variant: var(--color-body);
-  --color-warm-taupe: var(--color-primary);
-  --color-soft-sand: var(--color-accent);
-  --color-surface-cream: var(--color-background);
-  --color-surface-container-low: var(--color-surface);
-  --color-surface-variant: var(--color-surface);
-  --color-surface-bright: var(--color-elevated);
-  --color-background-alt: var(--color-surface);
-  --color-secondary-container: var(--color-light-amber);
-  --color-logo-ink: var(--color-heading);
-  --color-sage: #9bae9f;
-
   /* Geometry and elevation as they were before the refresh — flatter,
      less rounded. Both purely visual, so no component needs to know
      which edition it's in for these; only structural additions
@@ -958,23 +949,7 @@
   --radius-card: 17px;
   --shadow-card: none;
   --shadow-badge: none;
-
-  color: var(--color-body);
 }
-
-/* Alpha modifiers are folded to a literal at build time from the ROOT
-   palette, so unlike the solid utilities they do not re-resolve here.
-   Every one reachable from this edition is restated. */
-.edition-legacy .bg-cream-peach\/95 { background-color: rgba(251, 244, 234, 0.95); }
-.edition-legacy .bg-deep-purple\/50 { background-color: rgba(43, 35, 28, 0.5); }
-.edition-legacy .bg-soft-sand\/45 { background-color: rgba(215, 154, 72, 0.45); }
-.edition-legacy .bg-soft-sand\/40 { background-color: rgba(215, 154, 72, 0.4); }
-.edition-legacy .bg-sage\/35 { background-color: rgba(155, 174, 159, 0.35); }
-.edition-legacy .bg-sage\/25 { background-color: rgba(155, 174, 159, 0.25); }
-.edition-legacy .bg-sage\/20 { background-color: rgba(155, 174, 159, 0.2); }
-.edition-legacy .bg-warm-taupe\/60 { background-color: rgba(160, 74, 40, 0.6); }
-.edition-legacy .border-warm-orange\/30 { border-color: rgba(160, 74, 40, 0.3); }
-.edition-legacy .text-slate-blue\/60 { color: rgba(74, 63, 53, 0.6); }
 
 /* .v3-serif has no separate face in sama-latin's single-family setting,
    so it leans on weight instead of a typeface change. */

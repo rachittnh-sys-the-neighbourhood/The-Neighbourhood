@@ -15,7 +15,7 @@ import useScrollReveal from "../useScrollReveal.js";
  *
  * `legacy` swaps the credential chip from a filled Tag badge back to the
  * plain AccentLabel eyebrow it was before the refresh — same text, no
- * purple-tint surface, since that surface doesn't exist in that edition.
+ * tinted surface, since that surface doesn't exist in that edition.
  */
 const SIGNALS = [
   {
@@ -36,7 +36,7 @@ export default function GroundedIn({ legacy = false }) {
   const { ref, inView } = useScrollReveal(0.15);
 
   return (
-    <Section id="grounded-in">
+    <Section id="grounded-in" surface="cream-peach" gradient={!legacy}>
       <div ref={ref}>
         {/* "Grounded in" is the heading itself, not an eyebrow over one.
             It completes as a sentence with the three card labels below —

@@ -9,8 +9,17 @@ const SURFACES = {
   "cream-peach": "bg-cream-peach",
   "off-white": "bg-off-white",
   "light-amber": "bg-light-amber",
-  "purple-tint": "bg-purple-tint",
+  "accent-tint": "bg-accent-tint",
   white: "bg-white",
+};
+
+/* Soft-shaded counterparts for `gradient` — only surfaces that actually
+   have a wash defined in index.css. Falls back to the flat SURFACES fill
+   for anything else, so passing `gradient` on an unlisted surface is a
+   silent no-op rather than a broken class name. */
+const GRADIENT_SURFACES = {
+  "off-white": "bg-gradient-off-white",
+  "cream-peach": "bg-gradient-warm",
 };
 
 /* The same surfaces as fill values, for the wave divider. It has to be
@@ -22,7 +31,7 @@ const SURFACE_FILLS = {
   "cream-peach": "var(--color-cream-peach)",
   "off-white": "var(--color-off-white)",
   "light-amber": "var(--color-light-amber)",
-  "purple-tint": "var(--color-purple-tint)",
+  "accent-tint": "var(--color-accent-tint)",
   white: "var(--color-white)",
 };
 
@@ -81,15 +90,26 @@ export function Container({ className = "", children }) {
 export default function Section({
   as: Tag = "section",
   surface = "none",
+  gradient = false,
   waveTop = false,
   className = "",
   containerClassName = "",
   children,
   ...props
 }) {
+  // The wash layers ON TOP of the flat fill, not instead of it: every
+  // wash fades to transparent well before its own edge (that's the
+  // point — no hard-edged shapes), so the flat colour underneath has to
+  // stay in place to show through the gaps. Dropping it would let the
+  // nearest ancestor's background leak through instead, which for
+  // off-white sections is a visibly different tone (see the SECTION
+  // BANDING note in index.css) — the alternating light/off-white rhythm
+  // would break.
+  const surfaceClass = `${SURFACES[surface]} ${gradient ? GRADIENT_SURFACES[surface] || "" : ""}`;
+
   return (
     <Tag
-      className={`py-2xl md:py-3xl ${SURFACES[surface]} ${
+      className={`py-2xl md:py-3xl ${surfaceClass} ${
         waveTop ? "relative" : ""
       } ${className}`}
       {...props}

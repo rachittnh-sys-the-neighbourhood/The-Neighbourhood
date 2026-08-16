@@ -40,18 +40,24 @@ function useEditionStylesheet(href) {
  * Two editions share every section component below, so layout, spacing,
  * navigation, animation and behaviour can't drift between them:
  *
- *   legacy (default, "/")   the palette and sama-latin type that's live
- *                           today — see .edition-legacy in index.css.
+ *   legacy (default, "/")   sama-latin type and the flatter, less-rounded
+ *                           geometry that's live today — see
+ *                           .edition-legacy in index.css. Same brand
+ *                           palette as refresh; colour was never part of
+ *                           this split.
  *   refresh ("/type")       this session's redesign: Poppins + italic
- *                           Playfair Display, a warm-plum/amber palette,
- *                           rounder geometry and soft shadows — the bare
- *                           root tokens, i.e. what renders with no
- *                           wrapper class at all.
+ *                           Playfair Display, rounder geometry, soft
+ *                           shadows and gradient washes — the bare root
+ *                           tokens, i.e. what renders with no wrapper
+ *                           class at all.
  *
- * `legacy` also reaches the handful of sections with a genuine structural
- * difference between editions (HeroV4's trust badge, GroundedIn's Tag
- * badges, Invitation's dark card) — token overrides alone can restyle an
- * existing element, but can't add or remove one.
+ * `legacy` also reaches every section with a genuine structural difference
+ * between editions — a token override alone can restyle an existing
+ * element, but can't add, remove, or reshape one: HeroV4's trust badge,
+ * GroundedIn's Tag badges, Invitation's dark card and its atmosphere, and
+ * the soft layered background washes (`gradient` on <Section>, see
+ * GRADIENT WASHES in index.css) that every homepage section carries in
+ * refresh but not in legacy.
  */
 export default function Edition({ legacy = false, page = "home" }) {
   useEditionStylesheet(legacy ? TYPEKIT_STYLESHEET : null);
@@ -84,13 +90,13 @@ export default function Edition({ legacy = false, page = "home" }) {
         {isHome && (
           <>
             <HeroV4 onJoin={openWaitlist} legacy={legacy} />
-            <Welcome />
-            <TheQuestion />
-            <Today onJoin={openWaitlist} />
+            <Welcome legacy={legacy} />
+            <TheQuestion legacy={legacy} />
+            <Today onJoin={openWaitlist} legacy={legacy} />
             <GroundedIn legacy={legacy} />
-            <LongArc />
+            <LongArc legacy={legacy} />
             <Invitation onJoin={openWaitlist} legacy={legacy} />
-            <Contact />
+            <Contact legacy={legacy} />
           </>
         )}
         {page === "story" && <FounderStory />}

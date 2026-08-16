@@ -20,7 +20,7 @@ const SURFACES = {
   "off-white": "bg-surface",
   "cream-peach": "bg-background",
   "light-amber": "bg-light-amber",
-  "purple-tint": "bg-purple-tint",
+  "accent-tint": "bg-accent-tint",
 };
 
 const Card = forwardRef(function Card(

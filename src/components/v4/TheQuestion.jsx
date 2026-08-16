@@ -52,11 +52,11 @@ function TruthCard({ truth, index }) {
  * one radius, one shadow — the system's card corner throughout, no
  * bespoke geometry.
  */
-export default function TheQuestion() {
+export default function TheQuestion({ legacy = false }) {
   const closing = useScrollReveal(0.3);
 
   return (
-    <Section id="the-question">
+    <Section id="the-question" surface="cream-peach" gradient={!legacy}>
       <SectionHeading
         label="Why we exist"
         title="You love your child more than anything. Some days, raising them is still a lot."

@@ -17,11 +17,11 @@ export const FOUNDERS_EMAIL = "founders@theneighbourhood.co.in";
  * Invitation directly above; the system's own guidance is to reserve the
  * accent fill for the single most important action per screen.
  */
-export default function Contact() {
+export default function Contact({ legacy = false }) {
   const { ref, inView } = useScrollReveal(0.2);
 
   return (
-    <Section id="contact" surface="off-white">
+    <Section id="contact" surface="off-white" gradient={!legacy}>
       <SectionHeading
         label="Contact"
         title="Come and say hello."

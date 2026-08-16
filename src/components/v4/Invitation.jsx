@@ -21,6 +21,12 @@ import useScrollReveal from "../useScrollReveal.js";
  * and surface, so the two stay obviously the same section wearing
  * different clothes rather than two different sections.
  *
+ * Refresh's dark card carries the same layered-atmosphere treatment as
+ * the rest of the homepage (--gradient-dark in index.css) instead of the
+ * two flat blob circles it used to — very low-opacity terracotta/amber
+ * pooling into the charcoal, so it reads as depth on a dark surface, not
+ * as a lit one. Legacy keeps its original flat blob circles untouched.
+ *
  * CTA label matches the hero deliberately: by here the parent has been
  * asked the same simple thing three times, in three different emotional
  * states. No countdown, no "spots remaining", no urgency device.
@@ -34,30 +40,25 @@ export default function Invitation({ onJoin, legacy = false }) {
         <div
           ref={ref}
           className={`reveal ${inView ? "in-view" : ""} ${
-            legacy ? "bg-light-amber" : "bg-charcoal"
+            legacy ? "bg-light-amber" : "bg-charcoal bg-gradient-dark"
           } relative overflow-hidden rounded-rounded px-lg py-3xl text-center md:px-2xl`}
         >
-          {/* The blobs live in their own clipping layer pinned to the
-              panel's box. An absolutely positioned child that extends
-              past its parent still counts toward scrollHeight, which
-              would make the panel itself scrollable when the button
-              inside receives focus. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden"
-          >
-            {legacy ? (
-              <>
-                <div className="blob-float absolute -right-2xl -top-2xl h-[280px] w-[280px] rounded-circle bg-white/40" />
-                <div className="blob-float-slow absolute -bottom-2xl -left-2xl h-[240px] w-[240px] rounded-circle bg-sage/25" />
-              </>
-            ) : (
-              <>
-                <div className="blob-float absolute -right-2xl -top-2xl h-[280px] w-[280px] rounded-circle bg-soft-sand/10" />
-                <div className="blob-float-slow absolute -bottom-2xl -left-2xl h-[240px] w-[240px] rounded-circle bg-sage/10" />
-              </>
-            )}
-          </div>
+          {/* Legacy's blobs live in their own clipping layer pinned to
+              the panel's box. An absolutely positioned child that
+              extends past its parent still counts toward scrollHeight,
+              which would make the panel itself scrollable when the
+              button inside receives focus. Refresh needs no equivalent
+              layer — its atmosphere is a background-image on the panel
+              itself, not a positioned child. */}
+          {legacy && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 overflow-hidden"
+            >
+              <div className="blob-float absolute -right-2xl -top-2xl h-[280px] w-[280px] rounded-circle bg-white/40" />
+              <div className="blob-float-slow absolute -bottom-2xl -left-2xl h-[240px] w-[240px] rounded-circle bg-sage/25" />
+            </div>
+          )}
 
           <div className="relative z-10 mx-auto max-w-measure-lg">
             <AccentLabel tone={legacy ? "deep-purple" : "white"}>

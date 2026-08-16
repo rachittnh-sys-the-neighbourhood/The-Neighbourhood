@@ -25,7 +25,7 @@ import stages from "../../data/timelineSummary.js";
 // Only a few labels are drawn, so the node row never reads as clutter.
 const LABELLED = new Set([0, 4, 8]);
 
-export default function LongArc() {
+export default function LongArc({ legacy = false }) {
   const { ref, inView } = useScrollReveal(0.15);
   const [active, setActive] = useState(4); // 1–2 years: first steps
 
@@ -33,7 +33,7 @@ export default function LongArc() {
   const highlights = stage.highlights;
 
   return (
-    <Section id="long-arc" surface="off-white">
+    <Section id="long-arc" surface="off-white" gradient={!legacy}>
       <SectionHeading
         label="The long arc"
         title="Every child on their own clock."

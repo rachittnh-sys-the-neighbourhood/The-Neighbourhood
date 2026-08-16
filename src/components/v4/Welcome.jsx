@@ -12,11 +12,16 @@ import motherAndBaby from "../../assets/mother-and-baby.svg";
  * portrait alongside. Uses the BlobImage component rather than a bespoke
  * frame, so the silhouette matches every other photo on the site.
  */
-export default function Welcome() {
+export default function Welcome({ legacy = false }) {
   const { ref, inView } = useScrollReveal(0.2);
 
   return (
-    <Section id="welcome" surface="off-white" className="relative overflow-hidden">
+    <Section
+      id="welcome"
+      surface="off-white"
+      gradient={!legacy}
+      className="relative overflow-hidden"
+    >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div
           className="absolute bottom-2xl left-0 hidden h-3xl w-3xl rounded-circle opacity-70 md:block"

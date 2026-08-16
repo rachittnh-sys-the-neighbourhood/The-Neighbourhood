@@ -17,9 +17,12 @@ import Tag from "../ui/Tag.jsx";
  * personalization begins immediately, and the amber fill is spent on the
  * single most important action on the page, as the system requires.
  *
- * The gradient wash and trust badge are refresh-only (`legacy` skips
+ * The atmosphere wash and trust badge are refresh-only (`legacy` skips
  * both) — a token override can restyle an existing element, but adding
- * or removing one needs the prop.
+ * or removing one needs the prop. The wash (--gradient-warm, defined in
+ * index.css) replaces what used to be two flat decorative circles here:
+ * layered radial pools rather than distinct shapes, so the background
+ * reads as unevenly lit rather than as circles-on-a-page.
  */
 export default function HeroV4({ onJoin, legacy = false }) {
   return (
@@ -27,13 +30,6 @@ export default function HeroV4({ onJoin, legacy = false }) {
       id="top"
       className={`${legacy ? "" : "bg-gradient-warm"} relative overflow-hidden pb-2xl pt-[calc(var(--spacing-3xl)+var(--spacing-2xl))] md:pb-3xl`}
     >
-      {/* Soft palette shapes behind the column. Large, pale and slow —
-          the page is footage-led, so these stay well under the type. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="blob-float absolute -left-2xl top-3xl h-3xl w-3xl rounded-circle bg-soft-sand/45 md:h-[220px] md:w-[220px]" />
-        <div className="blob-float-slow absolute -right-xl top-2xl h-3xl w-3xl rounded-circle bg-sage/35 md:h-[180px] md:w-[180px]" />
-      </div>
-
       <Container className="relative">
         <div className="mx-auto max-w-measure-xl text-center">
           <AccentLabel className="enter-up">

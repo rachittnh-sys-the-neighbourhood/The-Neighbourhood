@@ -3,8 +3,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 // "/" keeps serving the site as it's live today (the "legacy" edition —
 // see .edition-legacy in index.css). This session's redesign — Poppins +
-// Playfair Display, the warm-plum/amber palette, rounder geometry, soft
-// shadows — previews at /type instead of replacing it outright.
+// Playfair Display, rounder geometry, soft shadows, gradient washes, all
+// on the brand's own terracotta palette — previews at /type instead of
+// replacing it outright.
 const Edition = lazy(() => import("./pages/Edition.jsx"));
 
 const TodayPage = lazy(() => import("./pages/TodayPage.jsx"));
