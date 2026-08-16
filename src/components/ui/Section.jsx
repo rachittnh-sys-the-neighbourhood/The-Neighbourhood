@@ -8,6 +8,10 @@ const SURFACES = {
   none: "",
   "cream-peach": "bg-cream-peach",
   "off-white": "bg-off-white",
+  // Same flat fill as "off-white" — this key exists purely to select the
+  // top-safe wash below via GRADIENT_SURFACES, for the one off-white
+  // section (Today) that carries a wave divider at its own top edge.
+  "off-white-top-safe": "bg-off-white",
   "light-amber": "bg-light-amber",
   "accent-tint": "bg-accent-tint",
   white: "bg-white",
@@ -19,6 +23,7 @@ const SURFACES = {
    silent no-op rather than a broken class name. */
 const GRADIENT_SURFACES = {
   "off-white": "bg-gradient-off-white",
+  "off-white-top-safe": "bg-gradient-off-white-top-safe",
   "cream-peach": "bg-gradient-warm",
 };
 
@@ -30,6 +35,7 @@ const SURFACE_FILLS = {
   none: "var(--color-cream-peach)",
   "cream-peach": "var(--color-cream-peach)",
   "off-white": "var(--color-off-white)",
+  "off-white-top-safe": "var(--color-off-white)",
   "light-amber": "var(--color-light-amber)",
   "accent-tint": "var(--color-accent-tint)",
   white: "var(--color-white)",

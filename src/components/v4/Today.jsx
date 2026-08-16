@@ -87,7 +87,7 @@ function PillarRow({ pillar, index }) {
  */
 export default function Today({ legacy = false }) {
   return (
-    <Section id="today" surface="off-white" gradient={!legacy} waveTop>
+    <Section id="today" surface="off-white-top-safe" gradient={!legacy} waveTop>
       {/* The break is pinned to the sentence boundary rather than left to
           the container width. At the widths where this title fits on two
           lines, Inter breaks after "Neighbourhood." but sama-latin (the

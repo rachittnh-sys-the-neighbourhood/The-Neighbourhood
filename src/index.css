@@ -533,11 +533,13 @@
 /* Applied across the whole homepage now, not just the hero, so nothing  */
 /* on the page reads as a flat block: --gradient-warm for the hero and   */
 /* the two Cream Peach sections (TheQuestion, GroundedIn — same base     */
-/* tone, same wash), --gradient-off-white for the four Off White "band"  */
-/* sections (Welcome, Today, The Long Arc, Contact), and --gradient-dark */
-/* for the closing Invitation card — the one place dark rather than      */
-/* cream, so its glows stay very low-opacity and read as depth on a      */
-/* dark surface, not as a lit one.                                       */
+/* tone, same wash), --gradient-off-white for three of the four Off      */
+/* White "band" sections (Welcome, The Long Arc, Contact) plus a         */
+/* dedicated --gradient-off-white-top-safe for the fourth (Today — see   */
+/* the comment on that token for why it needs its own), and              */
+/* --gradient-dark for the closing Invitation card — the one place dark  */
+/* rather than cream, so its glows stay very low-opacity and read as     */
+/* depth on a dark surface, not as a lit one.                            */
 /*                                                                       */
 /* background-image only accepts <image> values (gradients, url()) — no  */
 /* plain colour as a layer — so none of these list a base colour. They   */
@@ -567,6 +569,22 @@
     radial-gradient(58% 60% at 88% 15%, color-mix(in srgb, var(--color-accent) 15%, transparent) 0%, transparent 72%),
     radial-gradient(65% 55% at 8% 85%, color-mix(in srgb, var(--color-primary) 13%, transparent) 0%, transparent 70%),
     radial-gradient(55% 45% at 50% 100%, color-mix(in srgb, var(--color-heading) 5%, transparent) 0%, transparent 75%);
+  /* Today's own variant: it's the one off-white section that carries a
+     wave divider at its OWN top edge (see WaveTop in Section.jsx), and
+     it's also tall enough (three photo/copy rows) that the standard
+     off-white wash's top-right glow — sized and positioned fine for the
+     shorter Welcome/Long Arc/Contact — never fully fades out before
+     reaching y=0%. A radius that's 4x its distance from the edge (60%
+     radius, 15% from the top) doesn't fade to nothing in that gap no
+     matter how the fade percentage is tuned; it has to be genuinely
+     smaller than that distance instead. Every layer here keeps its
+     radius well under its distance from whichever edge it's nearest,
+     so this stays proportionally safe regardless of how tall the
+     section grows. */
+  --gradient-off-white-top-safe:
+    radial-gradient(45% 20% at 85% 40%, color-mix(in srgb, var(--color-accent) 15%, transparent) 0%, transparent 60%),
+    radial-gradient(55% 35% at 10% 88%, color-mix(in srgb, var(--color-primary) 13%, transparent) 0%, transparent 60%),
+    radial-gradient(50% 22% at 50% 100%, color-mix(in srgb, var(--color-heading) 5%, transparent) 0%, transparent 60%);
   --gradient-dark:
     radial-gradient(55% 60% at 85% 10%, color-mix(in srgb, var(--color-accent) 14%, transparent) 0%, transparent 70%),
     radial-gradient(60% 55% at 10% 90%, color-mix(in srgb, var(--color-primary) 18%, transparent) 0%, transparent 72%);
@@ -579,6 +597,10 @@
 
   .bg-gradient-off-white {
     background-image: var(--gradient-off-white);
+  }
+
+  .bg-gradient-off-white-top-safe {
+    background-image: var(--gradient-off-white-top-safe);
   }
 
   .bg-gradient-dark {
