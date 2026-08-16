@@ -21,22 +21,51 @@ import guidancePhone from "../assets/guidance-phone.jpg";
  * The current homepage at "/" is untouched.
  */
 
-// Age pill -> stage id in journeyStages.json. Mid-range stages chosen so
-// the sample activity feels representative of that year, not its edges.
+// Age pill -> stage id in journeyStages.json. The dataset is now 9
+// stages — quarterly to 12 months, then yearly to 6 years — rather than
+// the 15-stage (quarterly to 3 years) version this used to index into,
+// so "One" through "Five" map to the yearly bands (ids 4–8); "Under 1"
+// still lands on a quarterly one (id 2 = 7–9 months) since those didn't
+// move.
 const AGE_OPTIONS = [
   { label: "Under 1", stageId: 2 },
-  { label: "One", stageId: 5 },
-  { label: "Two", stageId: 9 },
-  { label: "Three", stageId: 12 },
-  { label: "Four", stageId: 13 },
-  { label: "Five", stageId: 14 },
+  { label: "One", stageId: 4 },
+  { label: "Two", stageId: 5 },
+  { label: "Three", stageId: 6 },
+  { label: "Four", stageId: 7 },
+  { label: "Five", stageId: 8 },
 ];
 
-const DEFAULT_STAGE_ID = 5; // 15–18 months — the season most scenes reference
+const DEFAULT_STAGE_ID = 4; // 1–2 years — the season most scenes reference
 
+// Matches an activity's domain to the emoji MorningNote/the evening scene
+// render inline. Kept to the four domains journeyStages.json actually
+// uses (see the domain names in the data itself).
+const DOMAIN_ICON = {
+  Motor: "🏃",
+  Communication: "💬",
+  "Social & Emotional": "🤝",
+  Cognitive: "🧠",
+};
+
+// journeyStages.json holds developmental milestones grouped by domain,
+// not the activityThemes shape this used to read — see the matching
+// comment on getStageActivities in TodayPage.jsx. The first domain with
+// a milestone becomes the sample activity; guide.try is the suggested
+// practice.
 function firstActivityOf(stage) {
-  const theme = stage.activityThemes[0];
-  return theme ? { ...theme.activities[0], theme: theme.theme } : null;
+  const domain = stage.domains.find((d) => d.milestones?.[0]?.guide?.try);
+  const milestone = domain?.milestones?.[0];
+  return milestone
+    ? {
+        icon: DOMAIN_ICON[domain.name] || "🌱",
+        name: milestone.text,
+        tagline: domain.name,
+        why: milestone.guide.try,
+        steps: [milestone.guide.try],
+        theme: domain.name,
+      }
+    : null;
 }
 
 function observationFor(stage) {

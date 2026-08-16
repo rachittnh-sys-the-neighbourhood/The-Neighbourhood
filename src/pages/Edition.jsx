@@ -16,38 +16,13 @@ import FounderStory from "../components/v3/FounderStory.jsx";
 import Values from "../components/v3/Values.jsx";
 import Faq from "../components/v3/Faq.jsx";
 
-/**
- * Alternate editions of the site.
- *
- * Every edition imports the same section components as the default
- * routes rather than copying them, so layout, spacing, navigation,
- * animation and behaviour are shared and cannot drift between versions.
- * An edition is nothing more than a wrapper class that redefines design
- * tokens for its subtree (see src/index.css), plus the webfont it needs.
- *
- *   typekit — "/"   the refined brand palette, set in sama-latin.
- *
- * This used to preview at /type alongside the old src/legacy design at
- * "/". It's now what "/" itself serves — src/legacy was retired — so
- * basePath is "" and every link below resolves to a root path directly.
- */
-const EDITIONS = {
-  typekit: {
-    // Stacks both classes: the refined palette from .edition-v2, the
-    // sama-latin type from .edition-typekit. They set disjoint tokens,
-    // so neither wins over the other.
-    className: "edition-v2 edition-typekit",
-    basePath: "",
-    stylesheet: "https://use.typekit.net/gzw2wee.css",
-  },
-};
+const TYPEKIT_STYLESHEET = "https://use.typekit.net/gzw2wee.css";
 
 /**
- * Pull in an edition's webfont only when that edition is actually
- * rendered, so the default site doesn't pay for three type systems it
- * never uses. The link is added once and left in place — removing it on
- * unmount would cause a visible reflow when navigating within an
- * edition.
+ * Pull in the legacy edition's webfont only when it's actually rendered,
+ * so /type doesn't pay for a type system it doesn't use. Left in place
+ * once added — removing it on unmount would cause a visible reflow when
+ * navigating within the legacy edition.
  */
 function useEditionStylesheet(href) {
   useEffect(() => {
@@ -59,17 +34,35 @@ function useEditionStylesheet(href) {
   }, [href]);
 }
 
-export default function Edition({ edition = "typekit", page = "home" }) {
-  const config = EDITIONS[edition];
-  useEditionStylesheet(config.stylesheet);
+/**
+ * The site — home, story, values and FAQ, switched by `page`.
+ *
+ * Two editions share every section component below, so layout, spacing,
+ * navigation, animation and behaviour can't drift between them:
+ *
+ *   legacy (default, "/")   the palette and sama-latin type that's live
+ *                           today — see .edition-legacy in index.css.
+ *   refresh ("/type")       this session's redesign: Poppins + italic
+ *                           Playfair Display, a warm-plum/amber palette,
+ *                           rounder geometry and soft shadows — the bare
+ *                           root tokens, i.e. what renders with no
+ *                           wrapper class at all.
+ *
+ * `legacy` also reaches the handful of sections with a genuine structural
+ * difference between editions (HeroV4's trust badge, GroundedIn's Tag
+ * badges, Invitation's dark card) — token overrides alone can restyle an
+ * existing element, but can't add or remove one.
+ */
+export default function Edition({ legacy = false, page = "home" }) {
+  useEditionStylesheet(legacy ? TYPEKIT_STYLESHEET : null);
 
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const openWaitlist = () => setWaitlistOpen(true);
 
-  const { basePath } = config;
+  // Legacy routes are rooted at "/"; the refresh previews under /type, so
+  // its internal links stay inside it while browsing.
+  const basePath = legacy ? "" : "/type";
 
-  // Same nav structure as the default site, rebased onto this edition so
-  // a visitor stays inside it while browsing.
   const links = [
     { label: "Why we exist", href: `${basePath}#the-question` },
     { label: "What we're building", href: `${basePath}#today` },
@@ -83,20 +76,20 @@ export default function Edition({ edition = "typekit", page = "home" }) {
 
   return (
     <div
-      className={`${config.className} min-h-screen overflow-x-clip bg-cream-peach`}
+      className={`${legacy ? "edition-legacy" : ""} min-h-screen overflow-x-clip bg-cream-peach`}
     >
       <NavbarV3 onJoin={openWaitlist} links={links} homePath={basePath || "/"} />
 
       <main className={isHome ? undefined : "pt-3xl"}>
         {isHome && (
           <>
-            <HeroV4 onJoin={openWaitlist} />
+            <HeroV4 onJoin={openWaitlist} legacy={legacy} />
             <Welcome />
             <TheQuestion />
             <Today onJoin={openWaitlist} />
-            <GroundedIn />
+            <GroundedIn legacy={legacy} />
             <LongArc />
-            <Invitation onJoin={openWaitlist} />
+            <Invitation onJoin={openWaitlist} legacy={legacy} />
             <Contact />
           </>
         )}

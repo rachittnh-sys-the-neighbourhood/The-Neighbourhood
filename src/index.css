@@ -15,33 +15,37 @@
 /* ==================================================================== */
 @theme {
   /* ------------------------------------------------------------------ */
-  /* ROOT PALETTE — the live site                                        */
+  /* PALETTE — the live site                                             */
   /*                                                                     */
-  /* These are the colours currently in production. They stay at the     */
-  /* root because the legacy site at "/" is a faithful copy of what is   */
-  /* live, and because Tailwind folds alpha modifiers (bg-sage/35) down  */
-  /* to a literal at build time from THESE values — a scoped override    */
-  /* cannot reach them. The refined palette is applied per-edition       */
-  /* instead; see .edition-v2 at the end of this file.                   */
+  /* One palette, at the root, used everywhere: the marketing site, the  */
+  /* /today and /day product surfaces, and the legal pages all read      */
+  /* from these values directly, so nothing can drift out of sync the    */
+  /* way the old root-vs-per-edition split allowed. Tailwind also folds  */
+  /* alpha modifiers (bg-sage/35) down to a literal at build time from   */
+  /* THESE values, which is the other reason they live here.             */
   /* ------------------------------------------------------------------ */
 
-  /* Action */
-  --color-primary: #2c2c2c;
-  --color-primary-hover: #8b7355;
-  --color-secondary: #a8b5a4;
-  --color-accent: #c9a58e;
+  /* Action — a warm plum-purple, in the spirit of the Nestology reference
+     (nestology-DESIGN.md): a saturated purple accent against a near-black
+     warm-plum text colour, with amber as the decorative highlight. Kept
+     warmer/less saturated than that reference's #9a5cc1 to stay calm
+     rather than vivid. */
+  --color-primary: #7d4f92;
+  --color-primary-hover: #63407a;
+  --color-secondary: #5f7566;
+  --color-accent: #e0a53f;
 
   /* Surfaces */
-  --color-background: #e8ddd1;
-  --color-surface: #fdf2e5;
-  --color-card: #ffffff;
+  --color-background: #fbf4ea;
+  --color-surface: #faf3e9;
+  --color-card: #fdf8f1;
   --color-elevated: #ffffff;
-  --color-border: rgba(139, 115, 85, 0.22);
+  --color-border: #e2d3c0;
 
   /* Text */
-  --color-heading: #2c2c2c;
-  --color-body: #444748;
-  --color-muted: #6b5d4f;
+  --color-heading: #332b2f;
+  --color-body: #4a3f3f;
+  --color-muted: #6d5f5a;
 
   /* Semantic */
   --color-success: #3f7a4f;
@@ -54,29 +58,36 @@
      and used by the components under src/components/ui. */
   --color-deep-purple: var(--color-heading);
   --color-slate-blue: var(--color-body);
-  --color-warm-orange: #8b7355;
+  --color-warm-orange: var(--color-primary);
   --color-golden-amber: var(--color-accent);
   --color-cream-peach: var(--color-background);
-  --color-off-white: var(--color-surface);
+  --color-off-white: #f5ebdc;
   --color-lavender-mist: var(--color-border);
-  --color-light-amber: #f9dbb7;
+  --color-light-amber: #f6e3c4;
 
   /* The brand's own names, stated as literals so that alpha modifiers
-     used by the legacy markup (bg-charcoal/50, border-warm-taupe/15 ...)
+     used across the markup (bg-charcoal/50, border-warm-taupe/15 ...)
      fold to the live site's exact colours. */
-  --color-charcoal: #2c2c2c;
-  --color-on-surface-variant: #444748;
-  --color-warm-taupe: #8b7355;
-  --color-soft-sand: #c9a58e;
-  --color-sage: #a8b5a4;
-  --color-surface-cream: #e8ddd1;
+  --color-charcoal: var(--color-heading);
+  --color-on-surface-variant: var(--color-body);
+  --color-warm-taupe: var(--color-primary);
+  --color-soft-sand: var(--color-accent);
+  --color-sage: #9bae9f;
+  --color-surface-cream: var(--color-background);
   --color-surface-container: #f7ece0;
-  --color-surface-container-low: #fdf2e5;
+  --color-surface-container-low: var(--color-surface);
   --color-surface-variant: #ece1d5;
   --color-surface-bright: #fff8f3;
-  --color-background-alt: #f5f2e1;
-  --color-secondary-container: #f9dbb7;
-  --color-logo-ink: #4a3323;
+  --color-background-alt: var(--color-surface);
+  --color-secondary-container: var(--color-light-amber);
+  --color-logo-ink: var(--color-heading);
+
+  /* A soft lavender wash — Nestology's "purple tint" surface (nestology-
+     DESIGN.md), reserved the same way: tag pills, badge backgrounds,
+     small section highlights. A second tinted surface alongside
+     light-amber, so the purple accent reads as a real second colour in
+     the system rather than only a button/link colour. */
+  --color-purple-tint: #f1e7ef;
 
   /* Spacing */
   --spacing-xs: 4px;
@@ -98,25 +109,39 @@
   --spacing-gutter: 24px;
   --spacing-section-gap: 80px;
 
-  /* Border Radius */
-  --radius-pill: 22px;
-  --radius-rounded: 30px;
+  /* Border Radius — rounder across the board, in the direction of the
+     Nestology reference (nestology-DESIGN.md), which rounds cards
+     16–24px and buttons to a true 180px stadium pill. `pill` is set well
+     past any control's half-height so it always resolves to a full
+     stadium, the way a literal 180px does for them, rather than tracking
+     a specific button size. */
+  --radius-pill: 999px;
+  --radius-rounded: 32px;
   --radius-circle: 100px;
-  --radius-soft: 10px;
-  --radius-card: 17px;
+  --radius-soft: 12px;
+  --radius-card: 24px;
 
-  /* Fonts — The Neighbourhood's original pairing. Inter carries the
-     whole hierarchy; Playfair Display italic is the emotional accent. */
-  --font-inter: "Inter", system-ui, sans-serif;
+  /* Fonts — Poppins carries the whole hierarchy; Playfair Display
+     italic is the emotional accent. Same pairing shape as the
+     Nestology reference (Poppins + italic Playfair Display), on our
+     own warm-plum/amber palette rather than theirs. */
+  --font-inter: "Poppins", system-ui, sans-serif;
   --font-playfair: "Playfair Display", serif;
 
   /* ------------------------------------------------------------------ */
-  /* Elevation. DESIGN.md lists exactly one validated shadow token, and  */
-  /* is explicit that depth stays flat beyond that evidence boundary —   */
-  /* so this is the only shadow in the system. Its colour is warmed to   */
-  /* the palette's brown; a neutral black shadow greys a cream page.     */
+  /* Elevation. DESIGN.md's own evidence stayed intentionally flat — one  */
+  /* shadow token, opt-in. The Nestology reference pulls the other way:   */
+  /* "soft drop shadows" on cards and badges by default, so surfaces read */
+  /* as lifted rather than printed on the page. Two more tokens, both     */
+  /* coloured with the palette's heading tone at low opacity rather than  */
+  /* neutral black (which greys a cream page): --shadow-card is the new   */
+  /* baseline every card now carries; --shadow-badge is the same idea at  */
+  /* pill scale. --shadow-subtle-lift still exists for the stronger,      */
+  /* opt-in hover/elevated state it always covered.                       */
   /* ------------------------------------------------------------------ */
   --shadow-subtle-lift: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
+  --shadow-card: 0px 10px 28px 0px rgba(51, 43, 47, 0.08);
+  --shadow-badge: 0px 3px 10px 0px rgba(51, 43, 47, 0.07);
 
   /* ------------------------------------------------------------------ */
   /* Measure widths.                                                     */
@@ -140,9 +165,9 @@
 /* ==================================================================== */
 /* TYPOGRAPHY VARIABLES                                                 */
 /*                                                                      */
-/* The Neighbourhood's original type system, restored. Inter carries    */
-/* every hierarchy role; Playfair Display italic is reserved for the    */
-/* emotional accent (.v3-serif) exactly as it was.                      */
+/* Poppins carries every hierarchy role; Playfair Display italic is     */
+/* reserved for the emotional accent (.v3-serif), echoing the Nestology */
+/* reference's Poppins + italic Playfair Display pairing.               */
 /*                                                                      */
 /* The role names are the reference system's, so the .type-* classes    */
 /* and every component that uses them are untouched — only the values   */
@@ -204,12 +229,15 @@
   --font-body-large-line-height: 1.75;
   --font-body-large-letter-spacing: normal;
 
-  /* was label-sm / body-strong — button and small emphasis labels */
+  /* was label-sm / body-strong — button and small emphasis labels. A
+     slight negative tracking here, matching the Nestology reference's
+     button/label roles (-0.4px on 16px, -2% on 14px) — tightens CTAs and
+     tags just enough to read as considered rather than default-set. */
   --font-body-small-bold-family: var(--font-inter);
   --font-body-small-bold-size: 0.875rem;
   --font-body-small-bold-weight: 600;
   --font-body-small-bold-line-height: 1.5;
-  --font-body-small-bold-letter-spacing: normal;
+  --font-body-small-bold-letter-spacing: -0.01em;
 
   /* fine print */
   --font-caption-family: var(--font-inter);
@@ -487,6 +515,41 @@
 }
 
 /* ==================================================================== */
+/* GRADIENT WASHES                                                      */
+/* The Nestology reference (nestology-DESIGN.md) pairs its warm plum/    */
+/* purple palette with soft gradient backgrounds rather than flat        */
+/* colour. Two washes, both built from the same three tokens so they     */
+/* can never drift from the rest of the palette: a quiet one for the     */
+/* hero (barely-there, sits behind footage), and a bolder one for the    */
+/* single closing CTA panel, which is the one place on the page it's     */
+/* allowed to be the loudest thing on screen.                            */
+/* ==================================================================== */
+@theme {
+  --gradient-warm: linear-gradient(
+    135deg,
+    var(--color-background) 0%,
+    color-mix(in srgb, var(--color-primary) 10%, var(--color-background)) 45%,
+    color-mix(in srgb, var(--color-accent) 16%, var(--color-background)) 100%
+  );
+  --gradient-accent: linear-gradient(
+    120deg,
+    var(--color-primary) 0%,
+    color-mix(in srgb, var(--color-primary) 45%, var(--color-accent)) 55%,
+    var(--color-accent) 100%
+  );
+}
+
+@layer components {
+  .bg-gradient-warm {
+    background-image: var(--gradient-warm);
+  }
+
+  .bg-gradient-accent {
+    background-image: var(--gradient-accent);
+  }
+}
+
+/* ==================================================================== */
 /* MOTION                                                               */
 /* Soft, unhurried entrances only — nothing that competes with the type. */
 /* ==================================================================== */
@@ -756,29 +819,21 @@
   }
 }
 
+
 /* ==================================================================== */
-/* TYPE EDITION — /type                                                 */
+/* LEGACY EDITION — "/", "/story", "/values", "/faq"                    */
 /*                                                                      */
-/* A separate typographic version of the site, served from the /type    */
-/* routes. It reuses every existing component, layout, colour and       */
-/* interaction unchanged; only the type roles are re-pointed, by        */
-/* redefining the same custom properties inside a scoped wrapper. The   */
-/* default site is not affected in any way.                             */
-/*                                                                      */
-/* A single-family setting: sama-latin carries every role — 700 for      */
-/* display, headings and labels, 400 for body. A warm geometric sans     */
-/* with a generous x-height and soft terminals, it has enough range      */
-/* across its two weights to hold the whole hierarchy on its own.        */
-/*                                                                       */
-/* The kit also ships emmeline (a handwritten script) and damson (a 900  */
-/* display face); neither is used here. One voice, set well, reads       */
-/* calmer than a pairing that has to justify itself on every section.    */
+/* The bare root tokens above are this session's refresh (Poppins,      */
+/* warm-plum/amber palette, rounder geometry, soft shadows — see the    */
+/* PALETTE and Border Radius comments above). That refresh now previews */
+/* at /type instead of replacing the live site outright, so this class  */
+/* restates exactly what was live before it — the terracotta palette    */
+/* and sama-latin type — scoped to the routes that still serve it. Content */
+/* verbatim from commit 7efb4f6, the last commit before the refresh.    */
 /* ==================================================================== */
-.edition-typekit {
+.edition-legacy {
   --font-sama: "sama-latin", ui-rounded, system-ui, sans-serif;
 
-  /* Display — sama 700. Rounded geometric forms close up well at size,
-     so tracking tightens slightly rather than staying neutral. */
   --font-hero-display-family: var(--font-sama);
   --font-hero-display-size: clamp(2.5rem, 5.4vw, 4.125rem);
   --font-hero-display-weight: 700;
@@ -803,10 +858,6 @@
   --font-card-heading-line-height: 1.4;
   --font-card-heading-letter-spacing: -0.004em;
 
-  /* The eyebrow returns to a tracked uppercase label. sama-latin's
-     letterforms are wider and rounder than Inter's, so it takes slightly
-     less tracking than the default site's 0.22em before the word starts
-     to come apart. */
   --font-accent-label-family: var(--font-sama);
   --font-accent-label-size: 0.8125rem;
   --font-accent-label-weight: 700;
@@ -814,8 +865,6 @@
   --font-accent-label-letter-spacing: 0.18em;
   --font-accent-label-transform: uppercase;
 
-  /* Body — sama 400. The large x-height wants a little more leading
-     than Inter did at the same size. */
   --font-body-regular-family: var(--font-sama);
   --font-body-regular-size: 1rem;
   --font-body-regular-weight: 400;
@@ -840,154 +889,21 @@
   --font-caption-line-height: 1.6;
   --font-caption-letter-spacing: 0.004em;
 
-  /* Display roles are fluid, so both tiers resolve to the same clamp. */
   --font-hero-display-size-mobile: var(--font-hero-display-size);
   --font-hero-display-line-height-mobile: var(--font-hero-display-line-height);
   --font-section-heading-size-mobile: var(--font-section-heading-size);
   --font-section-heading-line-height-mobile: var(--font-section-heading-line-height);
 
-  /* body{} already resolved font-family against the default tokens, and
-     children inherit that computed value — so the wrapper has to restate
-     it for the new stack to take effect inside. */
   font-family: var(--font-body-regular-family);
   font-size: var(--font-body-regular-size);
   line-height: var(--font-body-regular-line-height);
   letter-spacing: var(--font-body-regular-letter-spacing);
-}
 
-/* The emotional accent (.v3-serif) has no separate face in a
-   single-family setting, so it leans on weight instead of a typeface
-   change. */
-.edition-typekit .v3-serif {
-  font-family: var(--font-sama);
-  font-style: normal;
-  font-weight: 700;
-}
-
-/* ==================================================================== */
-/* TYPE EDITION — /type                                                 */
-/*                                                                      */
-/* A separate typographic version of the site, served from the /type    */
-/* routes. It reuses every existing component, layout, colour and       */
-/* interaction unchanged; only the type roles are re-pointed, by        */
-/* redefining the same custom properties inside a scoped wrapper. The   */
-/* default site is not affected in any way.                             */
-/*                                                                      */
-/* A single-family setting: sama-latin carries every role — 700 for      */
-/* display, headings and labels, 400 for body. A warm geometric sans     */
-/* with a generous x-height and soft terminals, it has enough range      */
-/* across its two weights to hold the whole hierarchy on its own.        */
-/*                                                                       */
-/* The kit also ships emmeline (a handwritten script) and damson (a 900  */
-/* display face); neither is used here. One voice, set well, reads       */
-/* calmer than a pairing that has to justify itself on every section.    */
-/* ==================================================================== */
-.edition-typekit {
-  --font-sama: "sama-latin", ui-rounded, system-ui, sans-serif;
-
-  /* Display — sama 700. Rounded geometric forms close up well at size,
-     so tracking tightens slightly rather than staying neutral. */
-  --font-hero-display-family: var(--font-sama);
-  --font-hero-display-size: clamp(2.5rem, 5.4vw, 4.125rem);
-  --font-hero-display-weight: 700;
-  --font-hero-display-line-height: 1.06;
-  --font-hero-display-letter-spacing: -0.021em;
-
-  --font-section-heading-family: var(--font-sama);
-  --font-section-heading-size: clamp(1.85rem, 3.5vw, 2.625rem);
-  --font-section-heading-weight: 700;
-  --font-section-heading-line-height: 1.16;
-  --font-section-heading-letter-spacing: -0.016em;
-
-  --font-sub-heading-family: var(--font-sama);
-  --font-sub-heading-size: 1.375rem;
-  --font-sub-heading-weight: 700;
-  --font-sub-heading-line-height: 1.38;
-  --font-sub-heading-letter-spacing: -0.008em;
-
-  --font-card-heading-family: var(--font-sama);
-  --font-card-heading-size: 1.125rem;
-  --font-card-heading-weight: 700;
-  --font-card-heading-line-height: 1.4;
-  --font-card-heading-letter-spacing: -0.004em;
-
-  /* The eyebrow returns to a tracked uppercase label. sama-latin's
-     letterforms are wider and rounder than Inter's, so it takes slightly
-     less tracking than the default site's 0.22em before the word starts
-     to come apart. */
-  --font-accent-label-family: var(--font-sama);
-  --font-accent-label-size: 0.8125rem;
-  --font-accent-label-weight: 700;
-  --font-accent-label-line-height: 1.2;
-  --font-accent-label-letter-spacing: 0.18em;
-  --font-accent-label-transform: uppercase;
-
-  /* Body — sama 400. The large x-height wants a little more leading
-     than Inter did at the same size. */
-  --font-body-regular-family: var(--font-sama);
-  --font-body-regular-size: 1rem;
-  --font-body-regular-weight: 400;
-  --font-body-regular-line-height: 1.7;
-  --font-body-regular-letter-spacing: 0.002em;
-
-  --font-body-large-family: var(--font-sama);
-  --font-body-large-size: 1.1875rem;
-  --font-body-large-weight: 400;
-  --font-body-large-line-height: 1.7;
-  --font-body-large-letter-spacing: 0.002em;
-
-  --font-body-small-bold-family: var(--font-sama);
-  --font-body-small-bold-size: 0.875rem;
-  --font-body-small-bold-weight: 700;
-  --font-body-small-bold-line-height: 1.5;
-  --font-body-small-bold-letter-spacing: 0.004em;
-
-  --font-caption-family: var(--font-sama);
-  --font-caption-size: 0.8125rem;
-  --font-caption-weight: 400;
-  --font-caption-line-height: 1.6;
-  --font-caption-letter-spacing: 0.004em;
-
-  /* Display roles are fluid, so both tiers resolve to the same clamp. */
-  --font-hero-display-size-mobile: var(--font-hero-display-size);
-  --font-hero-display-line-height-mobile: var(--font-hero-display-line-height);
-  --font-section-heading-size-mobile: var(--font-section-heading-size);
-  --font-section-heading-line-height-mobile: var(--font-section-heading-line-height);
-
-  /* body{} already resolved font-family against the default tokens, and
-     children inherit that computed value — so the wrapper has to restate
-     it for the new stack to take effect inside. */
-  font-family: var(--font-body-regular-family);
-  font-size: var(--font-body-regular-size);
-  line-height: var(--font-body-regular-line-height);
-  letter-spacing: var(--font-body-regular-letter-spacing);
-}
-
-/* The emotional accent (.v3-serif) has no separate face in a
-   single-family setting, so it leans on weight instead of a typeface
-   change. */
-.edition-typekit .v3-serif {
-  font-family: var(--font-sama);
-  font-style: normal;
-  font-weight: 700;
-}
-
-/* ==================================================================== */
-/* REFINED PALETTE — used by /type                                      */
-/*                                                                      */
-/* Warmer, with terracotta as the single confident accent. Scoped       */
-/* rather than applied at the root, because "/" must keep serving the   */
-/* design that is live today. Stacked with .edition-typekit, which adds */
-/* the sama-latin type on top of these colours.                         */
-/*                                                                      */
-/* Type is unchanged from the root — the refresh was colour only.       */
-/* ==================================================================== */
-.edition-v2 {
   /* Action */
-  --color-primary: #a04a28;        /* terracotta — 5.5:1 on bg, 6.0:1 under white */
+  --color-primary: #a04a28; /* terracotta — 5.5:1 on bg, 6.0:1 under white */
   --color-primary-hover: #8a3e20;
-  --color-secondary: #5f7566;      /* deep sage — 5.0:1 under white */
-  --color-accent: #d79a48;         /* marigold — decorative only, 2.4:1 on white */
+  --color-secondary: #5f7566; /* deep sage — 5.0:1 under white */
+  --color-accent: #d79a48; /* marigold — decorative only, 2.4:1 on white */
 
   /* Surfaces */
   --color-background: #fbf4ea;
@@ -997,9 +913,9 @@
   --color-border: #e2d3c0;
 
   /* Text */
-  --color-heading: #2b231c;        /* 12.9:1 on bg */
-  --color-body: #4a3f35;           /* 8.5:1 on bg */
-  --color-muted: #6b5d4f;          /* 4.9:1 on bg */
+  --color-heading: #2b231c; /* 12.9:1 on bg */
+  --color-body: #4a3f35; /* 8.5:1 on bg */
+  --color-muted: #6b5d4f; /* 4.9:1 on bg */
 
   /* Semantic */
   --color-success: #3f7a4f;
@@ -1012,16 +928,7 @@
   --color-warm-orange: var(--color-primary);
   --color-golden-amber: var(--color-accent);
   --color-cream-peach: var(--color-background);
-
-  /* SECTION BANDING. The page alternates between the base background and
-     this tone — Welcome, Today, The Long Arc and Contact carry it, the
-     sections between them do not. Pinned to its own literal rather than
-     tracking --color-surface: the cards use that, and they need to stay
-     near-white. Lightening the background to #fbf4ea had left the two
-     within 0.01 luminance of each other, which flattened the rhythm;
-     this restores the separation the design had before. */
   --color-off-white: #f5ebdc;
-
   --color-lavender-mist: var(--color-border);
   --color-light-amber: #f6e3c4;
 
@@ -1037,33 +944,42 @@
   --color-background-alt: var(--color-surface);
   --color-secondary-container: var(--color-light-amber);
   --color-logo-ink: var(--color-heading);
-
-  /* A lighter tint of Secondary. The functional sage carries white text
-     at 5:1, which turns murky when dropped to 20-35% behind artwork. */
   --color-sage: #9bae9f;
 
-  color: var(--color-body);
-}
+  /* Geometry and elevation as they were before the refresh — flatter,
+     less rounded. Both purely visual, so no component needs to know
+     which edition it's in for these; only structural additions
+     (HeroV4's trust badge, GroundedIn's Tag, Invitation's dark card)
+     need the `legacy` prop, since a token override can't add or remove
+     an element. */
+  --radius-pill: 22px;
+  --radius-rounded: 30px;
+  --radius-soft: 10px;
+  --radius-card: 17px;
+  --shadow-card: none;
+  --shadow-badge: none;
 
-/* The page's base colour lives on <body>, which is an ANCESTOR of the
-   element carrying .edition-v2 — so it never saw this palette and stayed
-   on the root's darker cream. That was the single largest surface on the
-   page, and it showed through as a muddier tone behind everything and in
-   the overscroll area. */
-body:has(.edition-v2) {
-  background-color: #fbf4ea;
+  color: var(--color-body);
 }
 
 /* Alpha modifiers are folded to a literal at build time from the ROOT
    palette, so unlike the solid utilities they do not re-resolve here.
    Every one reachable from this edition is restated. */
-.edition-v2 .bg-cream-peach\/95   { background-color: rgba(251, 244, 234, 0.95); }
-.edition-v2 .bg-deep-purple\/50   { background-color: rgba(43, 35, 28, 0.5); }
-.edition-v2 .bg-soft-sand\/45     { background-color: rgba(215, 154, 72, 0.45); }
-.edition-v2 .bg-soft-sand\/40     { background-color: rgba(215, 154, 72, 0.4); }
-.edition-v2 .bg-sage\/35          { background-color: rgba(155, 174, 159, 0.35); }
-.edition-v2 .bg-sage\/25          { background-color: rgba(155, 174, 159, 0.25); }
-.edition-v2 .bg-sage\/20          { background-color: rgba(155, 174, 159, 0.2); }
-.edition-v2 .bg-warm-taupe\/60    { background-color: rgba(160, 74, 40, 0.6); }
-.edition-v2 .border-warm-orange\/30 { border-color: rgba(160, 74, 40, 0.3); }
-.edition-v2 .text-slate-blue\/60  { color: rgba(74, 63, 53, 0.6); }
+.edition-legacy .bg-cream-peach\/95 { background-color: rgba(251, 244, 234, 0.95); }
+.edition-legacy .bg-deep-purple\/50 { background-color: rgba(43, 35, 28, 0.5); }
+.edition-legacy .bg-soft-sand\/45 { background-color: rgba(215, 154, 72, 0.45); }
+.edition-legacy .bg-soft-sand\/40 { background-color: rgba(215, 154, 72, 0.4); }
+.edition-legacy .bg-sage\/35 { background-color: rgba(155, 174, 159, 0.35); }
+.edition-legacy .bg-sage\/25 { background-color: rgba(155, 174, 159, 0.25); }
+.edition-legacy .bg-sage\/20 { background-color: rgba(155, 174, 159, 0.2); }
+.edition-legacy .bg-warm-taupe\/60 { background-color: rgba(160, 74, 40, 0.6); }
+.edition-legacy .border-warm-orange\/30 { border-color: rgba(160, 74, 40, 0.3); }
+.edition-legacy .text-slate-blue\/60 { color: rgba(74, 63, 53, 0.6); }
+
+/* .v3-serif has no separate face in sama-latin's single-family setting,
+   so it leans on weight instead of a typeface change. */
+.edition-legacy .v3-serif {
+  font-family: var(--font-sama);
+  font-style: normal;
+  font-weight: 700;
+}

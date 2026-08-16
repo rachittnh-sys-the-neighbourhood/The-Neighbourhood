@@ -9,6 +9,7 @@ const SURFACES = {
   "cream-peach": "bg-cream-peach",
   "off-white": "bg-off-white",
   "light-amber": "bg-light-amber",
+  "purple-tint": "bg-purple-tint",
   white: "bg-white",
 };
 
@@ -21,6 +22,7 @@ const SURFACE_FILLS = {
   "cream-peach": "var(--color-cream-peach)",
   "off-white": "var(--color-off-white)",
   "light-amber": "var(--color-light-amber)",
+  "purple-tint": "var(--color-purple-tint)",
   white: "var(--color-white)",
 };
 

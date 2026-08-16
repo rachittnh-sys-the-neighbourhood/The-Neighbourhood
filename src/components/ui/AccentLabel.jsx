@@ -14,6 +14,9 @@ const TONES = {
   "deep-purple": "text-charcoal",
   charcoal: "text-charcoal",
   "slate-blue": "text-on-surface-variant",
+  // For the one panel dark/bold enough to need a light label — the
+  // gradient-accent CTA.
+  white: "text-white/80",
 };
 
 export default function AccentLabel({

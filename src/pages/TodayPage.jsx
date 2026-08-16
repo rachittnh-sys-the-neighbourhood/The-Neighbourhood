@@ -91,9 +91,27 @@ function ActivityIcon({ activity, className = "" }) {
   );
 }
 
+// journeyStages.json holds developmental milestones grouped by domain
+// (Motor, Communication, Social & Emotional, Cognitive), not the
+// activityThemes/activities shape this page was originally written
+// against — that shape was replaced when the dataset was cut over to
+// real CDC-sourced milestone data (see "Refine homepage navigation and
+// timeline data"). Each milestone's guide doubles as a daily activity:
+// `try` is the suggested practice, `watch`/`see` are what to notice.
 function getStageActivities(stage) {
-  return stage.activityThemes
-    .flatMap((themeGroup) => themeGroup.activities.map((activity) => ({ ...activity, theme: themeGroup.theme })));
+  return stage.domains.flatMap((domain) =>
+    domain.milestones
+      .filter((milestone) => milestone.guide?.try)
+      .map((milestone) => ({
+        name: milestone.text,
+        tagline: domain.name,
+        why: milestone.guide.try,
+        steps: [milestone.guide.try],
+        watchFor: [milestone.guide.watch, milestone.guide.see].filter(Boolean),
+        pills: [domain.name],
+        theme: domain.name,
+      }))
+  );
 }
 
 function getDailyPlan(stage, dayNumber) {

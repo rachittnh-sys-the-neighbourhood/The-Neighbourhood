@@ -2,6 +2,7 @@ import heroFamilyVideo from "../../assets/hero-family-video.mp4";
 import { Container } from "../ui/Section.jsx";
 import AccentLabel from "../ui/AccentLabel.jsx";
 import Button from "../ui/Button.jsx";
+import Tag from "../ui/Tag.jsx";
 
 /**
  * Section 1 — Hero.
@@ -15,10 +16,17 @@ import Button from "../ui/Button.jsx";
  * One CTA. "Start with your child" rather than "Join the waitlist" —
  * personalization begins immediately, and the amber fill is spent on the
  * single most important action on the page, as the system requires.
+ *
+ * The gradient wash and trust badge are refresh-only (`legacy` skips
+ * both) — a token override can restyle an existing element, but adding
+ * or removing one needs the prop.
  */
-export default function HeroV4({ onJoin }) {
+export default function HeroV4({ onJoin, legacy = false }) {
   return (
-    <header id="top" className="relative overflow-hidden pb-2xl pt-[calc(var(--spacing-3xl)+var(--spacing-2xl))] md:pb-3xl">
+    <header
+      id="top"
+      className={`${legacy ? "" : "bg-gradient-warm"} relative overflow-hidden pb-2xl pt-[calc(var(--spacing-3xl)+var(--spacing-2xl))] md:pb-3xl`}
+    >
       {/* Soft palette shapes behind the column. Large, pale and slow —
           the page is footage-led, so these stay well under the type. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -57,6 +65,17 @@ export default function HeroV4({ onJoin }) {
               Takes less than 30 seconds
             </span>
           </div>
+
+          {/* The one trust signal above the fold — the same claim
+              GroundedIn makes further down, brought forward rather than
+              invented fresh for the hero. */}
+          {!legacy && (
+            <div className="enter-up mt-lg flex justify-center" data-delay="3">
+              <Tag icon="verified">
+                Grounded in WHO &amp; IAP developmental science
+              </Tag>
+            </div>
+          )}
         </div>
 
         {/* The photo inset. Sits inside the column, never bleeding to the

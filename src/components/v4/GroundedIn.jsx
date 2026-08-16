@@ -1,6 +1,7 @@
 import Section from "../ui/Section.jsx";
 import Card from "../ui/Card.jsx";
 import AccentLabel from "../ui/AccentLabel.jsx";
+import Tag from "../ui/Tag.jsx";
 import useScrollReveal from "../useScrollReveal.js";
 
 /**
@@ -11,6 +12,10 @@ import useScrollReveal from "../useScrollReveal.js";
  *
  * "Honest limits" is the unconventional one — admitting what the product
  * doesn't do is more persuasive than another credential.
+ *
+ * `legacy` swaps the credential chip from a filled Tag badge back to the
+ * plain AccentLabel eyebrow it was before the refresh — same text, no
+ * purple-tint surface, since that surface doesn't exist in that edition.
  */
 const SIGNALS = [
   {
@@ -27,7 +32,7 @@ const SIGNALS = [
   },
 ];
 
-export default function GroundedIn() {
+export default function GroundedIn({ legacy = false }) {
   const { ref, inView } = useScrollReveal(0.15);
 
   return (
@@ -58,8 +63,12 @@ export default function GroundedIn() {
               className={`reveal ${inView ? "in-view" : ""} h-full text-center`}
               data-delay={String(i + 1)}
             >
-              <AccentLabel>{s.label}</AccentLabel>
-              <p className="type-body-regular mt-md text-slate-blue">{s.body}</p>
+              {legacy ? (
+                <AccentLabel className="mb-md">{s.label}</AccentLabel>
+              ) : (
+                <Tag className="mb-md">{s.label}</Tag>
+              )}
+              <p className="type-body-regular text-slate-blue">{s.body}</p>
             </Card>
           ))}
         </div>
