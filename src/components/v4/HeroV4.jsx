@@ -2,33 +2,43 @@ import heroFamilyVideo from "../../assets/hero-family-video.mp4";
 import { Container } from "../ui/Section.jsx";
 import AccentLabel from "../ui/AccentLabel.jsx";
 import Button from "../ui/Button.jsx";
-import Tag from "../ui/Tag.jsx";
 
 /**
  * Section 1 — Hero.
  *
- * The reference hero is a single centred column on the Cream Peach wash:
- * accent label, Hero Display headline, Body Large lead, one amber pill
- * CTA, then a large photo inset in an organic blob frame with a dashed
- * Warm Orange outline offset behind it. That structure is reproduced
- * here; only the words and the footage are ours.
+ * Editorial redesign, scoped to this file only: one calm centred
+ * composition (eyebrow → headline → lead → CTA → a quiet trust line),
+ * generous whitespace, and the photo pushed well below the fold so it
+ * reads as the start of the next chapter rather than competing with the
+ * headline. Colours and sizes below are literal, one-off values rather
+ * than global token overrides — they were specified as exact hexes/px
+ * for this hero specifically, and routing them through --color-* or
+ * --font-hero-display-* would leak into every other surface that reads
+ * those tokens (body text, other headings, the legacy edition). Brand
+ * tokens are still reused wherever the target value already matches one
+ * (--font-playfair, --color-primary, --color-muted, the spacing scale
+ * for the photo block) — see inline comments below for which is which.
  *
- * One CTA. "Start with your child" rather than "Join the waitlist" —
- * personalization begins immediately, and the amber fill is spent on the
- * single most important action on the page, as the system requires.
- *
- * The atmosphere wash and trust badge are refresh-only (`legacy` skips
- * both) — a token override can restyle an existing element, but adding
- * or removing one needs the prop. The wash (--gradient-warm, defined in
- * index.css) replaces what used to be two flat decorative circles here:
- * layered radial pools rather than distinct shapes, so the background
- * reads as unevenly lit rather than as circles-on-a-page.
+ * The atmosphere wash and trust line are refresh-only (`legacy` skips
+ * both), matching the prior hero's behaviour.
  */
 export default function HeroV4({ onJoin, legacy = false }) {
   return (
     <header
       id="top"
-      className={`${legacy ? "" : "bg-gradient-warm"} relative overflow-hidden pb-2xl pt-[calc(var(--spacing-3xl)+var(--spacing-2xl))] md:pb-3xl`}
+      className="relative overflow-hidden pb-2xl pt-[calc(var(--spacing-3xl)+var(--spacing-2xl))] md:pb-3xl"
+      style={{
+        // --color-background now equals this hero's tone exactly (see
+        // index.css), so every cream-peach section down the page shares
+        // it — reading the token here instead of repeating the literal
+        // keeps that single source of truth intact.
+        backgroundColor: "var(--color-background)",
+        // Extremely subtle warm radial — reads as flat at a glance, only
+        // shows as a soft light pool once you look for it.
+        backgroundImage: !legacy
+          ? "radial-gradient(circle at 50% 35%, #F9ECDD 0%, var(--color-background) 50%, #F9E6CA 100%)"
+          : undefined,
+      }}
     >
       <Container className="relative">
         <div className="mx-auto max-w-measure-xl text-center">
@@ -36,48 +46,125 @@ export default function HeroV4({ onJoin, legacy = false }) {
             The village, rebuilt
           </AccentLabel>
 
+          {/* Three explicit lines, matching the supplied reference
+              crop: "Raising a child was" / "never meant to be done" /
+              "alone." — forced rather than left to wrap, so the break
+              points stay exactly here regardless of viewport width. */}
           <h1
-            className="enter-up type-hero-display mt-lg text-deep-purple"
+            className="enter-up mx-auto mt-[36px] max-w-measure-xl"
+            style={{
+              fontFamily: "var(--font-playfair)",
+              fontSize: "clamp(2.75rem, 2.4vw + 2.2rem, 4.5rem)",
+              lineHeight: 0.94,
+              fontWeight: 500,
+              letterSpacing: "-0.02em",
+              color: "#3A2116",
+            }}
             data-delay="1"
           >
-            Raising a child was never meant to be done alone.
+            Raising a child was{" "}
+            <br className="hidden md:inline" />
+            never meant to be done
+            <br />
+            <span
+              style={{
+                fontFamily: "var(--font-playfair)",
+                fontStyle: "italic",
+                fontWeight: 400,
+                color: "#E6844D",
+              }}
+            >
+              alone.
+            </span>
           </h1>
 
           <p
-            className="enter-up type-body-large mx-auto mt-lg max-w-measure text-slate-blue"
+            className="enter-up mx-auto mt-[30px]"
+            style={{
+              fontFamily: "var(--font-inter)",
+              fontSize: "17px",
+              fontWeight: 400,
+              lineHeight: 1.45,
+              color: "#817C74",
+              maxWidth: "30rem",
+            }}
             data-delay="2"
           >
             Real spaces. Real neighbours. Guidance that knows your child.
           </p>
 
           <div
-            className="enter-up mt-xl flex flex-col items-center justify-center gap-md sm:flex-row"
+            className="enter-up mt-[34px] flex flex-col items-center justify-center gap-[14px] sm:flex-row sm:gap-[20px]"
             data-delay="3"
           >
-            <Button size="lg" onClick={onJoin}>
+            <Button
+              size="lg"
+              onClick={onJoin}
+              className="w-full sm:w-auto"
+              style={{
+                height: "60px",
+                paddingLeft: "44px",
+                paddingRight: "44px",
+                // Darker, more neutral than the brand's cocoa primary —
+                // tested in the #292929–#302A25 charcoal-brown range
+                // asked for; picked the warmer end so it still reads as
+                // this brand's ink rather than a generic dark UI grey.
+                backgroundColor: "#2E2823",
+                // Substantially lighter than the previous pass: a short,
+                // low-opacity contact shadow rather than a lifted-card
+                // shadow, and no inset highlight.
+                boxShadow: "0 3px 10px -4px rgba(20, 16, 14, 0.28)",
+              }}
+            >
               Start with your child
             </Button>
-            <span className="type-body-regular text-slate-blue">
+            <span
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontSize: "15.5px",
+                color: "#6F665D",
+              }}
+            >
               Takes less than 30 seconds
             </span>
           </div>
 
-          {/* The one trust signal above the fold — the same claim
-              GroundedIn makes further down, brought forward rather than
-              invented fresh for the hero. */}
+          {/* Quiet trust line — the same claim GroundedIn makes further
+              down, brought forward, but as understated inline text with
+              a small icon rather than a floating pill/card. */}
           {!legacy && (
-            <div className="enter-up mt-lg flex justify-center" data-delay="3">
-              <Tag icon="verified">
+            <div
+              className="enter-up mt-[24px] flex items-center justify-center gap-[6px]"
+              style={{ opacity: 0.8 }}
+              data-delay="3"
+            >
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "13px", color: "var(--color-muted)" }}
+                aria-hidden="true"
+              >
+                verified
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontSize: "13px",
+                  color: "var(--color-muted)",
+                  textAlign: "center",
+                }}
+              >
                 Grounded in WHO &amp; IAP developmental science
-              </Tag>
+              </span>
             </div>
           )}
         </div>
 
-        {/* The photo inset. Sits inside the column, never bleeding to the
-            viewport edge. */}
+        {/* The photo inset — pushed further down (spacing scale, not a
+            one-off value: --spacing-3xl is already 100px, inside the
+            90–130px target) so it reads as the next chapter rather than
+            part of the hero composition. */}
         <div
-          className="enter-up relative mx-auto mt-3xl max-w-measure-xl"
+          className="enter-up relative mx-auto mt-3xl max-w-measure-xl md:mt-[130px]"
           data-delay="4"
         >
           <div

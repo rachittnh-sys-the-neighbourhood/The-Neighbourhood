@@ -35,14 +35,52 @@
      and GRADIENT WASHES below) still follow the Nestology reference;
      only colour reverts. "/" keeps the terracotta scheme unaffected —
      see .edition-legacy, which now carries its own explicit colours
-     again since this root diverges from it. */
-  --color-primary: #2c2c2c;
+     again since this root diverges from it.
+
+     The primary is then warmed one notch off that original charcoal —
+     #2c2c2c → #6b5744, a deep cocoa — which is NOT a return to the
+     reverted terracotta experiment: same original palette, just off
+     black. Three reasons it earns the change. (1) The CTA was the one
+     near-black element on a page of warm creams and terracotta
+     photography, and read as imported from another brand. (2) It makes
+     --color-primary-hover a real relationship: #6b5744 → #8b7355 is a
+     lift within one hue family, where #2c2c2c → #8b7355 was a jump
+     from black to taupe. (3) Every gradient wash below mixes
+     --color-primary at 13–18%, so the old value was pushing near-black
+     into the background of every section on the page — a large part of
+     why the surfaces read heavy. Lightening the CTA lightens them all.
+
+     White-on-primary stays comfortably above 4.5:1 (6.8:1). Note that
+     #8b7355 measures 4.49:1 and so cannot itself be a resting
+     background for white label text — it is fine as a hover, where the
+     resting state carries the contrast. Headings, body copy and the
+     dark Invitation card are unaffected: they read --color-charcoal
+     (below), which stays #2c2c2c. Keeping --color-primary and
+     --color-heading as separate tokens is what makes that split
+     possible — see the comment in components/ui/Button.jsx. */
+  --color-primary: #6b5744;
   --color-primary-hover: #8b7355;
   --color-secondary: #a8b5a4;
   --color-accent: #c9a58e;
 
-  /* Surfaces */
-  --color-background: #e8ddd1;
+  /* Surfaces
+     --color-background now matches the hero's own background (#FAE8D0,
+     set directly in HeroV4.jsx) exactly, rather than the paler, less
+     saturated #f2e8db it carried before. That older value shared the
+     hero's hue (~34°) but sat at roughly half its saturation — fine on
+     its own, but it read as a flatter, greyer cream next to the hero
+     once the hero got its own literal colour, breaking the continuity
+     down the page. Matching it outright means every cream-peach section
+     (TheQuestion, GroundedIn) and the page's default body fill now flow
+     directly from the hero instead of stepping down to a duller tone.
+     --color-surface (off-white) is untouched: at HSL(~32°, 85%, 94%) it
+     was already close to the hero's own hue/saturation, just lighter —
+     it didn't have the mismatch --color-background did, and it's what
+     keeps the cream-peach/off-white section banding the wave dividers
+     rely on (see SECTION BANDING and GRADIENT WASHES below) legible.
+     --color-surface-cream mirrors this value; --color-cream-peach
+     aliases --color-background and follows automatically. */
+  --color-background: #fae8d0;
   --color-surface: #fdf2e5;
   --color-card: #ffffff;
   --color-elevated: #ffffff;
@@ -79,7 +117,7 @@
   --color-warm-taupe: #8b7355;
   --color-soft-sand: #c9a58e;
   --color-sage: #a8b5a4;
-  --color-surface-cream: #e8ddd1;
+  --color-surface-cream: #fae8d0;
   --color-surface-container: #f7ece0;
   --color-surface-container-low: #fdf2e5;
   --color-surface-variant: #ece1d5;

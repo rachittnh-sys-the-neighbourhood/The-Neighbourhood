@@ -69,6 +69,24 @@ export default function Invitation({ onJoin, legacy = false }) {
               className={`type-section-heading mt-md ${
                 legacy ? "text-deep-purple" : "text-white"
               }`}
+              style={
+                legacy
+                  ? undefined
+                  : {
+                      // The same editorial treatment as the hero and the
+                      // other standalone declarative headings (see
+                      // SectionHeading's `serif` prop) — this section
+                      // doesn't use that shared component, so the same
+                      // three properties are set directly here. Colour
+                      // stays text-white (set via className above) since
+                      // this sits on the dark card, not the cream
+                      // background the hero's #3A2116 was tuned for.
+                      fontFamily: "var(--font-playfair)",
+                      fontWeight: 500,
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1.08,
+                    }
+              }
             >
               There&rsquo;s a place here for your family.
             </h2>

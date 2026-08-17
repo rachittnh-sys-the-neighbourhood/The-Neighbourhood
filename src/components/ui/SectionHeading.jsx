@@ -26,6 +26,13 @@ export default function SectionHeading({
   align = "left",
   measure = "lg",
   className = "",
+  // Opt-in editorial treatment: the same Playfair Display / weight 500 /
+  // tight tracking the hero headline now carries, for the handful of
+  // section headings that play the hero's role — a standalone
+  // declarative statement, not a functional label. Off by default so
+  // this stays a deliberate choice per section rather than a global
+  // font swap; see the callers that pass it for which ones qualify.
+  serif = false,
 }) {
   const { ref, inView } = useScrollReveal(0.25);
   const centered = align === "center";
@@ -43,6 +50,17 @@ export default function SectionHeading({
 
       <h2
         className={`reveal ${inView ? "in-view" : ""} type-section-heading text-deep-purple`}
+        style={
+          serif
+            ? {
+                fontFamily: "var(--font-playfair)",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.08,
+                color: "#3A2116",
+              }
+            : undefined
+        }
         data-delay="1"
       >
         {title}

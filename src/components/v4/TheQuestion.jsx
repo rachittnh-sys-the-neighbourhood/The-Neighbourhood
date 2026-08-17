@@ -62,6 +62,7 @@ export default function TheQuestion({ legacy = false }) {
         title="You love your child more than anything. Some days, raising them is still a lot."
         lead="That's not a contradiction, and it isn't a failing. Parenting today asks one person — sometimes two — to do what an entire neighbourhood once did together."
         align="center"
+        serif
       />
 
       <div className="mt-3xl grid gap-component-gap md:grid-cols-3">
