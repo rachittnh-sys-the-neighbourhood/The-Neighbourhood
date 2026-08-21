@@ -40,7 +40,7 @@ export default function Invitation({ onJoin, legacy = false }) {
         <div
           ref={ref}
           className={`reveal ${inView ? "in-view" : ""} ${
-            legacy ? "bg-light-amber" : "bg-charcoal bg-gradient-dark"
+            legacy ? "bg-light-amber" : "bg-charcoal"
           } relative overflow-hidden rounded-rounded px-lg py-3xl text-center md:px-2xl`}
         >
           {/* Legacy's blobs live in their own clipping layer pinned to

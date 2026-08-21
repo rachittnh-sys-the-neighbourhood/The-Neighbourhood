@@ -1019,8 +1019,8 @@
   /* Colour — the terracotta palette this site has actually been live
      with, restated explicitly now that root has reverted to the
      original charcoal/warm-taupe scheme instead. */
-  --color-primary: #a04a28; /* terracotta — 5.5:1 on bg, 6.0:1 under white */
-  --color-primary-hover: #8a3e20;
+  --color-primary: #47423d; /* deep warm grey — 9.9:1 under white */
+  --color-primary-hover: #625c56; /* lifts one step within the same grey */
   --color-secondary: #5f7566; /* deep sage — 5.0:1 under white */
   --color-accent: #d79a48; /* marigold — decorative only, 2.4:1 on white */
 

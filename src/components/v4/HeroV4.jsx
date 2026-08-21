@@ -105,11 +105,19 @@ export default function HeroV4({ onJoin, legacy = false }) {
                 height: "60px",
                 paddingLeft: "44px",
                 paddingRight: "44px",
-                // Darker, more neutral than the brand's cocoa primary —
-                // tested in the #292929–#302A25 charcoal-brown range
-                // asked for; picked the warmer end so it still reads as
-                // this brand's ink rather than a generic dark UI grey.
-                backgroundColor: "#2E2823",
+                // legacy (main variant) matches the navbar CTA's grey
+                // --color-primary instead of this hardcoded near-black,
+                // so every primary CTA on "/" reads as one colour.
+                // /type keeps its own darker, warmer override.
+                ...(legacy
+                  ? {}
+                  : {
+                      // Darker, more neutral than the brand's cocoa primary —
+                      // tested in the #292929–#302A25 charcoal-brown range
+                      // asked for; picked the warmer end so it still reads as
+                      // this brand's ink rather than a generic dark UI grey.
+                      backgroundColor: "#2E2823",
+                    }),
                 // Substantially lighter than the previous pass: a short,
                 // low-opacity contact shadow rather than a lifted-card
                 // shadow, and no inset highlight.

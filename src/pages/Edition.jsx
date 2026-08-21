@@ -95,7 +95,7 @@ export default function Edition({ legacy = false, page = "home" }) {
             <Today onJoin={openWaitlist} legacy={legacy} />
             <GroundedIn legacy={legacy} />
             <LongArc legacy={legacy} />
-            <Invitation onJoin={openWaitlist} legacy={legacy} />
+            <Invitation onJoin={openWaitlist} />
             <Contact legacy={legacy} />
           </>
         )}
