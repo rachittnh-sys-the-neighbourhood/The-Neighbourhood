@@ -20,7 +20,7 @@ import useScrollReveal from "../useScrollReveal.js";
 const SIGNALS = [
   {
     label: "Developmental science",
-    body: "Milestones drawn from WHO and Indian Academy of Pediatrics frameworks — not internet consensus.",
+    body: "Milestones drawn from WHO and Indian Academy of Pediatrics frameworks, not internet consensus.",
   },
   {
     label: "Real classrooms",

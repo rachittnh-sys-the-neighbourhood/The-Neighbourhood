@@ -69,7 +69,7 @@ export default function NavbarV3({
               onLogoClick?.(e);
             }}
             className="flex items-center gap-sm"
-            aria-label="The Neighbourhood — back to home"
+            aria-label="The Neighbourhood, back to home"
           >
             <LogoIcon className="logo-draw h-2xl w-2xl shrink-0" />
             <span className="type-card-heading whitespace-nowrap text-deep-purple">

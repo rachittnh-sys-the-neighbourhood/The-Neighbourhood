@@ -43,7 +43,7 @@ export default function Welcome({ legacy = false }) {
           </h2>
 
           <p className="type-body-large mt-lg max-w-measure text-slate-blue">
-            We&rsquo;re Sakshi and Rachit — parents to Mehr and Rudr, building
+            We&rsquo;re Sakshi and Rachit, parents to Mehr and Rudr, building
             in Gurugram the village we couldn&rsquo;t find for our own
             children.
           </p>

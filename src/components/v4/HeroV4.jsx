@@ -81,12 +81,12 @@ export default function HeroV4({ onJoin, legacy = false }) {
           <p
             className="enter-up mx-auto mt-[30px]"
             style={{
-              fontFamily: "var(--font-inter)",
+              fontFamily: "var(--font-body-regular-family)",
               fontSize: "17px",
               fontWeight: 400,
               lineHeight: 1.45,
               color: "#817C74",
-              maxWidth: "30rem",
+              maxWidth: "33rem",
             }}
             data-delay="2"
           >
@@ -105,6 +105,7 @@ export default function HeroV4({ onJoin, legacy = false }) {
                 height: "60px",
                 paddingLeft: "44px",
                 paddingRight: "44px",
+                fontSize: "17px",
                 // legacy (main variant) matches the navbar CTA's grey
                 // --color-primary instead of this hardcoded near-black,
                 // so every primary CTA on "/" reads as one colour.
@@ -128,7 +129,7 @@ export default function HeroV4({ onJoin, legacy = false }) {
             </Button>
             <span
               style={{
-                fontFamily: "var(--font-inter)",
+                fontFamily: "var(--font-body-regular-family)",
                 fontSize: "15.5px",
                 color: "#6F665D",
               }}

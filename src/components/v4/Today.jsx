@@ -12,7 +12,7 @@ const PILLARS = [
     number: "01",
     eyebrow: "The Guidance",
     title: "Answers that know your child.",
-    body: "One quiet app. Ask anything at 2pm or 2am and get an answer shaped by your child — their age, their temperament, their history. Grounded in real expertise, spoken like a friend, never a script.",
+    body: "One quiet app. Ask anything at 2pm or 2am and get an answer shaped by your child: their age, their temperament, their history. Grounded in real expertise, spoken like a friend, never a script.",
     image: {
       src: guidancePhone,
       alt: "A phone held up at night showing a gentle, reassuring reply to a parent's question, with a sleeping baby softly visible below in warm lamplight",
@@ -22,7 +22,7 @@ const PILLARS = [
     number: "02",
     eyebrow: "The Neighbours",
     title: "The same faces, week after week.",
-    body: "Small circles of parents who live near you, matched by your child's age and stage. Not another group chat — real people you'll actually see, until they stop being strangers and start being the aunties and uncles your child grows up around.",
+    body: "Small circles of parents who live near you, matched by your child's age and stage. Not another group chat. Real people you'll actually see, until they stop being strangers and start being the aunties and uncles your child grows up around.",
     image: {
       src: neighboursCircle,
       alt: "Parents sitting on floor cushions in easy conversation beneath a tree-shaped bookshelf, while two children read together on a rug nearby",
@@ -32,10 +32,10 @@ const PILLARS = [
     number: "03",
     eyebrow: "The Spaces",
     title: "Places where children belong, not just attend.",
-    body: "The Aangan and The Verandah are calm, beautiful spaces near you — natural materials, soft light, room to move. Designed around a child's nervous system, not a brochure. A regulated child is a child who can truly play, learn, and grow.",
+    body: "The Aangan and The Verandah are calm, beautiful spaces near you: natural materials, soft light, room to move. Designed around a child's nervous system, not a brochure. A regulated child is a child who can truly play, learn, and grow.",
     image: {
       src: aanganSpace,
-      alt: "Inside The Aangan: a child absorbed in a wooden activity tray on the floor of a calm Montessori room — low shelves, pale wood, soft morning light",
+      alt: "Inside The Aangan: a child absorbed in a wooden activity tray on the floor of a calm Montessori room, with low shelves, pale wood, and soft morning light",
     },
   },
 ];
@@ -90,7 +90,7 @@ export default function Today({ legacy = false }) {
     <Section id="today" surface="off-white-top-safe" gradient={!legacy} waveTop>
       {/* The break is pinned to the sentence boundary rather than left to
           the container width. At the widths where this title fits on two
-          lines, Inter breaks after "Neighbourhood." but sama-latin (the
+          lines, Inter breaks after "Neighbourhood." but Poppins (the
           /type edition) is narrow enough to pull "All" up onto the first
           line — so the wrap point would differ per edition. On mobile the
           span stays inline and wraps naturally. */}

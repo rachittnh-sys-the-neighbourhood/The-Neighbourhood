@@ -20,6 +20,15 @@ function LinkedInIcon(props) {
   );
 }
 
+function EmailIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true" {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /**
  * Footer sits on the Light Amber wash — the token whose role DESIGN.md
  * names as "footer accent areas". Divider is Warm Orange at low opacity,
@@ -39,7 +48,7 @@ export default function FooterV3({ minimal = false }) {
   }
 
   return (
-    <footer className="bg-light-amber py-2xl">
+    <footer id="contact" className="bg-light-amber py-2xl">
       <Container className="flex flex-col items-center gap-lg">
         <LogoIcon className="h-2xl w-2xl" />
 
@@ -52,9 +61,11 @@ export default function FooterV3({ minimal = false }) {
         <div className="flex items-center gap-lg">
           <a
             href="mailto:founders@theneighbourhood.co.in"
-            className="type-body-regular text-slate-blue transition-colors duration-200 hover:text-charcoal"
+            aria-label="Email The Neighbourhood at founders@theneighbourhood.co.in"
+            title="founders@theneighbourhood.co.in"
+            className="text-slate-blue transition-colors duration-200 hover:text-charcoal"
           >
-            founders@theneighbourhood.co.in
+            <EmailIcon className="h-lg w-lg" />
           </a>
 
           <a

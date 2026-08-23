@@ -931,63 +931,63 @@
 /* the original charcoal/warm-taupe scheme (see PALETTE above), not the */
 /* terracotta refresh this site has actually been live with. So colour  */
 /* IS back in scope for this class: it restates the terracotta palette  */
-/* explicitly, plus sama-latin type and the flatter, less-rounded       */
+/* explicitly, plus Inter type and the flatter, less-rounded            */
 /* geometry that's been live all along — scoped to the routes that      */
 /* still serve it.                                                      */
 /* ==================================================================== */
 .edition-legacy {
-  --font-sama: "sama-latin", ui-rounded, system-ui, sans-serif;
+  --font-legacy-sans: "Inter", system-ui, sans-serif;
 
-  --font-hero-display-family: var(--font-sama);
+  --font-hero-display-family: var(--font-legacy-sans);
   --font-hero-display-size: clamp(2.5rem, 5.4vw, 4.125rem);
   --font-hero-display-weight: 700;
   --font-hero-display-line-height: 1.06;
   --font-hero-display-letter-spacing: -0.021em;
 
-  --font-section-heading-family: var(--font-sama);
+  --font-section-heading-family: var(--font-legacy-sans);
   --font-section-heading-size: clamp(1.85rem, 3.5vw, 2.625rem);
   --font-section-heading-weight: 700;
   --font-section-heading-line-height: 1.16;
   --font-section-heading-letter-spacing: -0.016em;
 
-  --font-sub-heading-family: var(--font-sama);
+  --font-sub-heading-family: var(--font-legacy-sans);
   --font-sub-heading-size: 1.375rem;
   --font-sub-heading-weight: 700;
   --font-sub-heading-line-height: 1.38;
   --font-sub-heading-letter-spacing: -0.008em;
 
-  --font-card-heading-family: var(--font-sama);
+  --font-card-heading-family: var(--font-legacy-sans);
   --font-card-heading-size: 1.125rem;
   --font-card-heading-weight: 700;
   --font-card-heading-line-height: 1.4;
   --font-card-heading-letter-spacing: -0.004em;
 
-  --font-accent-label-family: var(--font-sama);
+  --font-accent-label-family: var(--font-legacy-sans);
   --font-accent-label-size: 0.8125rem;
   --font-accent-label-weight: 700;
   --font-accent-label-line-height: 1.2;
   --font-accent-label-letter-spacing: 0.18em;
   --font-accent-label-transform: uppercase;
 
-  --font-body-regular-family: var(--font-sama);
+  --font-body-regular-family: var(--font-legacy-sans);
   --font-body-regular-size: 1rem;
   --font-body-regular-weight: 400;
   --font-body-regular-line-height: 1.7;
   --font-body-regular-letter-spacing: 0.002em;
 
-  --font-body-large-family: var(--font-sama);
+  --font-body-large-family: var(--font-legacy-sans);
   --font-body-large-size: 1.1875rem;
   --font-body-large-weight: 400;
   --font-body-large-line-height: 1.7;
   --font-body-large-letter-spacing: 0.002em;
 
-  --font-body-small-bold-family: var(--font-sama);
+  --font-body-small-bold-family: var(--font-legacy-sans);
   --font-body-small-bold-size: 0.875rem;
   --font-body-small-bold-weight: 700;
   --font-body-small-bold-line-height: 1.5;
   --font-body-small-bold-letter-spacing: 0.004em;
 
-  --font-caption-family: var(--font-sama);
+  --font-caption-family: var(--font-legacy-sans);
   --font-caption-size: 0.8125rem;
   --font-caption-weight: 400;
   --font-caption-line-height: 1.6;
@@ -1019,8 +1019,8 @@
   /* Colour — the terracotta palette this site has actually been live
      with, restated explicitly now that root has reverted to the
      original charcoal/warm-taupe scheme instead. */
-  --color-primary: #47423d; /* deep warm grey — 9.9:1 under white */
-  --color-primary-hover: #625c56; /* lifts one step within the same grey */
+  --color-primary: #6b6259; /* lighter warm grey — 6.0:1 under white */
+  --color-primary-hover: #7a7166; /* lifts one step within the same grey */
   --color-secondary: #5f7566; /* deep sage — 5.0:1 under white */
   --color-accent: #d79a48; /* marigold — decorative only, 2.4:1 on white */
 
@@ -1080,10 +1080,10 @@ body:has(.edition-legacy) {
 .edition-legacy .border-warm-orange\/30 { border-color: rgba(160, 74, 40, 0.3); }
 .edition-legacy .text-slate-blue\/60 { color: rgba(74, 63, 53, 0.6); }
 
-/* .v3-serif has no separate face in sama-latin's single-family setting,
+/* .v3-serif has no separate face in Inter's single-family setting,
    so it leans on weight instead of a typeface change. */
 .edition-legacy .v3-serif {
-  font-family: var(--font-sama);
+  font-family: var(--font-legacy-sans);
   font-style: normal;
   font-weight: 700;
 }

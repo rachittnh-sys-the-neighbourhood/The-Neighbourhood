@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavbarV3 from "../components/v3/NavbarV3.jsx";
 import FooterV3 from "../components/v3/FooterV3.jsx";
 import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
@@ -10,29 +10,10 @@ import Today from "../components/v4/Today.jsx";
 import GroundedIn from "../components/v4/GroundedIn.jsx";
 import LongArc from "../components/v4/LongArc.jsx";
 import Invitation from "../components/v4/Invitation.jsx";
-import Contact from "../components/v4/Contact.jsx";
 
 import FounderStory from "../components/v3/FounderStory.jsx";
 import Values from "../components/v3/Values.jsx";
 import Faq from "../components/v3/Faq.jsx";
-
-const TYPEKIT_STYLESHEET = "https://use.typekit.net/gzw2wee.css";
-
-/**
- * Pull in the legacy edition's webfont only when it's actually rendered,
- * so /type doesn't pay for a type system it doesn't use. Left in place
- * once added — removing it on unmount would cause a visible reflow when
- * navigating within the legacy edition.
- */
-function useEditionStylesheet(href) {
-  useEffect(() => {
-    if (!href || document.querySelector(`link[href="${href}"]`)) return;
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = href;
-    document.head.appendChild(link);
-  }, [href]);
-}
 
 /**
  * The site — home, story, values and FAQ, switched by `page`.
@@ -40,7 +21,7 @@ function useEditionStylesheet(href) {
  * Two editions share every section component below, so layout, spacing,
  * navigation, animation and behaviour can't drift between them:
  *
- *   legacy (default, "/")   sama-latin type and the flatter, less-rounded
+ *   legacy (default, "/")   Inter type and the flatter, less-rounded
  *                           geometry that's live today — see
  *                           .edition-legacy in index.css. Same brand
  *                           palette as refresh; colour was never part of
@@ -60,8 +41,6 @@ function useEditionStylesheet(href) {
  * refresh but not in legacy.
  */
 export default function Edition({ legacy = false, page = "home" }) {
-  useEditionStylesheet(legacy ? TYPEKIT_STYLESHEET : null);
-
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const openWaitlist = () => setWaitlistOpen(true);
 
@@ -96,7 +75,6 @@ export default function Edition({ legacy = false, page = "home" }) {
             <GroundedIn legacy={legacy} />
             <LongArc legacy={legacy} />
             <Invitation onJoin={openWaitlist} />
-            <Contact legacy={legacy} />
           </>
         )}
         {page === "story" && <FounderStory />}
