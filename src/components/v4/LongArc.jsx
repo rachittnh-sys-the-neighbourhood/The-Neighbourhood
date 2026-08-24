@@ -37,7 +37,7 @@ export default function LongArc({ legacy = false }) {
       <SectionHeading
         label="The long arc"
         title="Every child on their own clock."
-        lead="The Neighbourhood follows nine stages from birth to six years — across motor, communication, social and cognitive growth — and remembers all of it, so you don't have to."
+        lead="The Neighbourhood follows nine stages from birth to six years (across motor, communication, social and cognitive growth) and remembers all of it, so you don't have to."
         align="center"
         serif
       />

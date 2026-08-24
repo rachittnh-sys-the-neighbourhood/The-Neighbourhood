@@ -8,17 +8,17 @@ const TRUTHS = [
   {
     number: "01",
     title: "The village has scattered.",
-    body: "Grandparents might live a flight away. Neighbours stay strangers. The question you would have asked over a cup of chai becomes a 2am search — and a search engine doesn't know your child.",
+    body: "Grandparents might live a flight away. Neighbours stay strangers. The question you would have asked over a cup of chai becomes a 2am search, and a search engine doesn't know your child.",
   },
   {
     number: "02",
     title: "Plenty of advice. Limited context.",
-    body: "Books, apps, reels, relatives — every answer is written for an average child who doesn't exist. Advice that ignores your child's temperament, your home, your reality isn't guidance. It's noise.",
+    body: "Books, apps, reels, relatives: every answer is written for an average child who doesn't exist. Advice that ignores your child's temperament, your home, your reality isn't guidance. It's noise.",
   },
   {
     number: "03",
     title: "Childhood moved indoors.",
-    body: "The courtyards and streets where children once wandered freely became screens. Play got quieter, more supervised, more alone — and children feel the difference, even if they can't name it.",
+    body: "The courtyards and streets where children once wandered freely became screens. Play got quieter, more supervised, more alone, and children feel the difference, even if they can't name it.",
   },
 ];
 
@@ -60,7 +60,7 @@ export default function TheQuestion({ legacy = false }) {
       <SectionHeading
         label="Why we exist"
         title="You love your child more than anything. Some days, raising them is still a lot."
-        lead="That's not a contradiction, and it isn't a failing. Parenting today asks one person — sometimes two — to do what an entire neighbourhood once did together."
+        lead="That's not a contradiction, and it isn't a failing. Parenting today asks one person, sometimes two, to do what an entire neighbourhood once did together."
         align="center"
         serif
       />
