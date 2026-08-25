@@ -5,8 +5,8 @@
 export const LEGAL_META = {
   entityName: "The Neighbourhood",
   effectiveDate: "August 3, 2026",
-  lastUpdated: "August 3, 2026",
-  version: "1.0",
+  lastUpdated: "August 25, 2026",
+  version: "1.1",
   contactEmail: "founders@theneighbourhood.co.in",
   location: "Gurugram, Haryana, India",
 };

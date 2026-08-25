@@ -64,12 +64,11 @@ export default function CookiePolicy() {
       <LegalSection id="third-party" heading="4. Third-party services">
         <p>
           This website loads typefaces from Google Fonts
-          (fonts.googleapis.com) and, on some pages, Adobe Fonts
-          (use.typekit.net). Loading a font is a request to that provider's
-          servers, and like any web request it may let the provider see
-          your IP address and browser details, and may set cookies of
-          their own on that provider's domain, governed by their own
-          cookie and privacy policies rather than ours.
+          (fonts.googleapis.com). Loading a font is a request to that
+          provider's servers, and like any web request it may let the
+          provider see your IP address and browser details, and may set
+          cookies of their own on that provider's domain, governed by their
+          own cookie and privacy policies rather than ours.
         </p>
         <p>
           Our waitlist database (Supabase) and hosting provider (Vercel)

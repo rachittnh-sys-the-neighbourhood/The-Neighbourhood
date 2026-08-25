@@ -158,10 +158,9 @@ export default function TermsAndConditions() {
         <p>
           The Services rely on third-party infrastructure, including
           Supabase (our database provider), Vercel (our hosting provider),
-          and Google Fonts and Adobe Fonts (Typekit) for typefaces. We are
-          not responsible for the availability, content, or practices of
-          these or any other third-party service, or of any external site
-          we may link to.
+          and Google Fonts for typefaces. We are not responsible for the
+          availability, content, or practices of these or any other
+          third-party service, or of any external site we may link to.
         </p>
       </LegalSection>
 

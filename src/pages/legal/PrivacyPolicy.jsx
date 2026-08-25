@@ -160,11 +160,10 @@ export default function PrivacyPolicy() {
             website;
           </li>
           <li>
-            <strong>Google Fonts</strong>, and, on some pages,{" "}
-            <strong>Adobe Fonts (Typekit)</strong> — used to load the
-            typefaces on this page; loading a font requests it from that
-            provider's servers, which may log your IP address under their
-            own privacy policies.
+            <strong>Google Fonts</strong> — used to load the typefaces on
+            this page; loading a font requests it from that provider's
+            servers, which may log your IP address under their own privacy
+            policies.
           </li>
         </ul>
         <p>
