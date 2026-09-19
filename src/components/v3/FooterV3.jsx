@@ -30,9 +30,10 @@ function EmailIcon(props) {
 }
 
 /**
- * Footer sits on the Light Amber wash — the token whose role DESIGN.md
- * names as "footer accent areas". Divider is Warm Orange at low opacity,
- * matching the dashed-outline vocabulary used elsewhere.
+ * Footer sits on --color-primary — the same warm grey as the site's CTA
+ * buttons, so the header and footer bookend the page in one colour. Text,
+ * icons and links flip to white/light variants accordingly, the same
+ * treatment the dark Invitation card uses above.
  */
 export default function FooterV3({ minimal = false }) {
   if (minimal) {
@@ -48,13 +49,13 @@ export default function FooterV3({ minimal = false }) {
   }
 
   return (
-    <footer id="contact" className="bg-light-amber py-2xl">
+    <footer id="contact" className="bg-primary py-2xl">
       <Container className="flex flex-col items-center gap-lg">
-        <LogoIcon className="h-2xl w-2xl" />
+        <LogoIcon className="h-2xl w-2xl" color="white" />
 
-        <p className="type-sub-heading text-deep-purple">The Neighbourhood</p>
+        <p className="type-sub-heading text-white">The Neighbourhood</p>
 
-        <AccentLabel className="text-center">
+        <AccentLabel tone="white" className="text-center">
           Safe Spaces, Warm Hearts, Bright Futures
         </AccentLabel>
 
@@ -63,7 +64,7 @@ export default function FooterV3({ minimal = false }) {
             href="mailto:founders@theneighbourhood.co.in"
             aria-label="Email The Neighbourhood at founders@theneighbourhood.co.in"
             title="founders@theneighbourhood.co.in"
-            className="text-slate-blue transition-colors duration-200 hover:text-charcoal"
+            className="text-white/80 transition-colors duration-200 hover:text-white"
           >
             <EmailIcon className="h-lg w-lg" />
           </a>
@@ -73,7 +74,7 @@ export default function FooterV3({ minimal = false }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="The Neighbourhood on LinkedIn"
-            className="text-slate-blue transition-colors duration-200 hover:text-charcoal"
+            className="text-white/80 transition-colors duration-200 hover:text-white"
           >
             <LinkedInIcon className="h-lg w-lg" />
           </a>
@@ -87,14 +88,14 @@ export default function FooterV3({ minimal = false }) {
             <Link
               key={link.href}
               to={link.href}
-              className="type-caption font-normal text-slate-blue transition-colors duration-200 hover:text-charcoal"
+              className="type-caption font-normal text-white/80 transition-colors duration-200 hover:text-white"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <p className="type-caption w-full border-t border-warm-orange/30 pt-lg text-center font-normal text-slate-blue">
+        <p className="type-caption w-full border-t border-white/20 pt-lg text-center font-normal text-white/70">
           &copy; {new Date().getFullYear()} The Neighbourhood &middot; Gurugram,
           India
         </p>
