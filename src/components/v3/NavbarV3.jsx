@@ -107,6 +107,15 @@ export default function NavbarV3({
             to={homePath}
             onClick={(e) => {
               closeMenu();
+              // React Router only handles the route change. If you're
+              // already on homePath (e.g. scrolled down the homepage
+              // itself), the pathname doesn't change, so it does nothing
+              // at all — no re-render, no scroll reset, the click looked
+              // completely inert. Scrolling explicitly on every click
+              // covers that case and the cross-page one alike, rather
+              // than relying on the router's (nonexistent, here) default
+              // scroll-restoration behaviour.
+              window.scrollTo({ top: 0, behavior: "smooth" });
               onLogoClick?.(e);
             }}
             className="flex items-center gap-sm"
