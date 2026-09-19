@@ -12,13 +12,17 @@ import useScrollReveal from "../useScrollReveal.js";
  * The pull quote uses the system's card surface rather than a bespoke
  * blockquote rule, so it inherits the one validated shadow and the card
  * corner like everything else.
+ *
+ * surface="off-white" so it reads as a distinct section when stacked
+ * with Values and Contact on the merged /about page, rather than
+ * blending into the page's own cream-peach background.
  */
 export default function FounderStory() {
   const story = useScrollReveal(0.15);
   const quote = useScrollReveal(0.3);
 
   return (
-    <Section id="story">
+    <Section id="story" surface="off-white">
       <SectionHeading
         label="Our story"
         title="It started with a couple who couldn't find what their daughter needed."

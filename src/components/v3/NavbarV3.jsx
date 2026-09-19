@@ -1,14 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import LogoIcon from "../LogoIcon.jsx";
 import Button from "../ui/Button.jsx";
 
 // Anchor to homepage sections. Prefixed with "/" so the links resolve
-// correctly even when the navbar is shown on /today.
+// correctly even when the navbar is shown on /today, /day, or a legal
+// page. "About Us" is a dropdown group, not a link itself — its
+// `children` navigate, the parent only toggles them open.
 const LINKS = [
   { label: "Why we exist", href: "/#the-question" },
   { label: "What we're building", href: "/#today" },
-  { label: "Our story", href: "/story" },
+  {
+    label: "About Us",
+    children: [
+      { label: "Our story", href: "/about#story" },
+      { label: "Our values", href: "/about#values" },
+      { label: "Contact", href: "/about#contact" },
+    ],
+  },
   { label: "FAQ", href: "/faq" },
 ];
 
@@ -20,7 +29,10 @@ const LINKS = [
  * single validated shadow; nothing heavier.
  *
  * `links` and `homePath` default to the homepage, so existing callers are
- * unaffected.
+ * unaffected. An entry in `links` is either a plain `{label, href}` or a
+ * dropdown group `{label, children: [{label, href}, ...]}` — used today
+ * for "About Us" (Our story / Our values / Contact, all anchors on the
+ * merged /about page).
  */
 export default function NavbarV3({
   onJoin,
@@ -30,6 +42,9 @@ export default function NavbarV3({
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [desktopGroupOpen, setDesktopGroupOpen] = useState(null);
+  const [mobileGroupOpen, setMobileGroupOpen] = useState(null);
+  const desktopGroupRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -46,7 +61,33 @@ export default function NavbarV3({
     };
   }, [menuOpen]);
 
-  const closeMenu = () => setMenuOpen(false);
+  // Close the desktop dropdown on an outside click or Escape — it has no
+  // other way to dismiss itself once opened by click (there's no hover
+  // affordance to just move away from).
+  useEffect(() => {
+    if (!desktopGroupOpen) return;
+
+    const onPointerDown = (e) => {
+      if (!desktopGroupRef.current?.contains(e.target)) {
+        setDesktopGroupOpen(null);
+      }
+    };
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setDesktopGroupOpen(null);
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [desktopGroupOpen]);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setMobileGroupOpen(null);
+  };
 
   // The backdrop-filter lives on this inner bar, not on <nav> itself —
   // backdrop-filter on an ancestor becomes the containing block for
@@ -78,15 +119,59 @@ export default function NavbarV3({
           </Link>
 
           <div className="hidden items-center gap-xl lg:flex">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="type-body-regular text-deep-purple transition-colors duration-200 hover:text-warm-orange"
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) =>
+              link.children ? (
+                <div key={link.label} ref={desktopGroupRef} className="relative">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setDesktopGroupOpen((open) => (open === link.label ? null : link.label))
+                    }
+                    aria-expanded={desktopGroupOpen === link.label}
+                    className="flex items-center gap-xs type-body-regular text-deep-purple transition-colors duration-200 hover:text-warm-orange"
+                  >
+                    {link.label}
+                    <span
+                      className="material-symbols-outlined transition-transform duration-200"
+                      style={{
+                        fontSize: "18px",
+                        transform: desktopGroupOpen === link.label ? "rotate(180deg)" : "none",
+                      }}
+                      aria-hidden="true"
+                    >
+                      expand_more
+                    </span>
+                  </button>
+
+                  <div
+                    className={`absolute left-0 top-full mt-sm flex min-w-[11rem] flex-col gap-xs rounded-card border border-lavender-mist bg-white p-xs shadow-card transition-all duration-150 ${
+                      desktopGroupOpen === link.label
+                        ? "pointer-events-auto translate-y-0 opacity-100"
+                        : "pointer-events-none -translate-y-1 opacity-0"
+                    }`}
+                  >
+                    {link.children.map((child) => (
+                      <a
+                        key={child.href}
+                        href={child.href}
+                        onClick={() => setDesktopGroupOpen(null)}
+                        className="type-body-regular whitespace-nowrap rounded-soft px-sm py-xs text-deep-purple transition-colors duration-150 hover:bg-cream-peach hover:text-warm-orange"
+                      >
+                        {child.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="type-body-regular text-deep-purple transition-colors duration-200 hover:text-warm-orange"
+                >
+                  {link.label}
+                </a>
+              )
+            )}
           </div>
 
           <div className="flex items-center gap-md">
@@ -127,25 +212,72 @@ export default function NavbarV3({
 
       {/* Full-screen mobile menu overlay. */}
       <div
-        className={`fixed inset-x-0 bottom-0 top-3xl bg-cream-peach transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-x-0 bottom-0 top-3xl overflow-y-auto bg-cream-peach transition-opacity duration-300 lg:hidden ${
           menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        <div className="flex h-full flex-col px-lg pb-2xl pt-xl">
+        <div className="flex min-h-full flex-col px-lg pb-2xl pt-xl">
           <div className="flex flex-col">
-            {links.map((link, i) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={closeMenu}
-                className={`reveal ${
-                  menuOpen ? "in-view" : ""
-                } type-sub-heading border-b border-lavender-mist py-md text-deep-purple`}
-                style={{ transitionDelay: menuOpen ? `${i * 60}ms` : "0ms" }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link, i) =>
+              link.children ? (
+                <div
+                  key={link.label}
+                  className={`reveal ${
+                    menuOpen ? "in-view" : ""
+                  } border-b border-lavender-mist`}
+                  style={{ transitionDelay: menuOpen ? `${i * 60}ms` : "0ms" }}
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setMobileGroupOpen((open) => (open === link.label ? null : link.label))
+                    }
+                    aria-expanded={mobileGroupOpen === link.label}
+                    className="flex w-full items-center justify-between py-md type-sub-heading text-deep-purple"
+                  >
+                    {link.label}
+                    <span
+                      className="material-symbols-outlined transition-transform duration-200"
+                      style={{
+                        transform: mobileGroupOpen === link.label ? "rotate(180deg)" : "none",
+                      }}
+                      aria-hidden="true"
+                    >
+                      expand_more
+                    </span>
+                  </button>
+
+                  <div
+                    className={`flex flex-col overflow-hidden transition-all duration-200 ${
+                      mobileGroupOpen === link.label ? "max-h-40 pb-md" : "max-h-0"
+                    }`}
+                  >
+                    {link.children.map((child) => (
+                      <a
+                        key={child.href}
+                        href={child.href}
+                        onClick={closeMenu}
+                        className="type-body-large py-sm pl-lg text-slate-blue"
+                      >
+                        {child.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className={`reveal ${
+                    menuOpen ? "in-view" : ""
+                  } type-sub-heading border-b border-lavender-mist py-md text-deep-purple`}
+                  style={{ transitionDelay: menuOpen ? `${i * 60}ms` : "0ms" }}
+                >
+                  {link.label}
+                </a>
+              )
+            )}
           </div>
 
           <Button
