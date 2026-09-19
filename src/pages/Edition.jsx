@@ -10,6 +10,7 @@ import Today from "../components/v4/Today.jsx";
 import GroundedIn from "../components/v4/GroundedIn.jsx";
 import LongArc from "../components/v4/LongArc.jsx";
 import Invitation from "../components/v4/Invitation.jsx";
+import AppPromo from "../components/v4/AppPromo.jsx";
 
 import FounderStory from "../components/v3/FounderStory.jsx";
 import Values from "../components/v3/Values.jsx";
@@ -84,6 +85,7 @@ export default function Edition({ legacy = false, page = "home" }) {
 
       <FooterV3 />
       <WaitlistDialogV3 open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
+      {isHome && <AppPromo />}
     </div>
   );
 }
