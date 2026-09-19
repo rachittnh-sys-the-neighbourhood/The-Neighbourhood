@@ -49,7 +49,7 @@ export default function FooterV3({ minimal = false }) {
   }
 
   return (
-    <footer id="contact" className="bg-primary py-2xl">
+    <footer className="bg-primary py-2xl">
       <Container className="flex flex-col items-center gap-lg">
         <LogoIcon className="h-2xl w-2xl" color="white" />
 

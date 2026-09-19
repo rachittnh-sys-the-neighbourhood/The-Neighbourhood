@@ -14,56 +14,51 @@ import AppPromo from "../components/v4/AppPromo.jsx";
 
 import FounderStory from "../components/v3/FounderStory.jsx";
 import Values from "../components/v3/Values.jsx";
+import AboutContact from "../components/v3/AboutContact.jsx";
 import Faq from "../components/v3/Faq.jsx";
 
 /**
- * The site — home, story, values and FAQ, switched by `page`.
+ * The site — home, about (story + values + contact, merged) and FAQ,
+ * switched by `page`.
  *
- * Two editions share every section component below, so layout, spacing,
- * navigation, animation and behaviour can't drift between them:
- *
- *   legacy (default, "/")   Inter type and the flatter, less-rounded
- *                           geometry that's live today — see
- *                           .edition-legacy in index.css. Same brand
- *                           palette as refresh; colour was never part of
- *                           this split.
- *   refresh ("/type")       this session's redesign: Poppins + italic
- *                           Playfair Display, rounder geometry, soft
- *                           shadows and gradient washes — the bare root
- *                           tokens, i.e. what renders with no wrapper
- *                           class at all.
- *
- * `legacy` also reaches every section with a genuine structural difference
- * between editions — a token override alone can restyle an existing
- * element, but can't add, remove, or reshape one: HeroV4's trust badge,
- * GroundedIn's Tag badges, Invitation's dark card and its atmosphere, and
- * the soft layered background washes (`gradient` on <Section>, see
- * GRADIENT WASHES in index.css) that every homepage section carries in
- * refresh but not in legacy.
+ * Every section component below still takes a `legacy` prop, a leftover
+ * from when a second "refresh" edition previewed at /type alongside the
+ * live site. That route is retired (see App.jsx) and every remaining
+ * route always passes `legacy`, so the refresh branches — HeroV4's trust
+ * badge, GroundedIn's Tag badges, Invitation's dark card, the gradient
+ * washes in index.css's root tokens vs. .edition-legacy — are dormant
+ * rather than removed. Left in place rather than stripped out along with
+ * the route.
  */
 export default function Edition({ legacy = false, page = "home" }) {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const openWaitlist = () => setWaitlistOpen(true);
 
-  // Legacy routes are rooted at "/"; the refresh previews under /type, so
-  // its internal links stay inside it while browsing.
+  // basePath is only ever "" now that /type is retired (see the comment
+  // above) — kept rather than hardcoded, since it's what the dormant
+  // refresh branches above still key off of.
   const basePath = legacy ? "" : "/type";
 
   // Anchors need a real path before the "#", not just the fragment —
   // basePath is "" for legacy, which would otherwise produce a bare
   // "#the-question" href. A bare fragment never navigates; it only
-  // scrolls within the current document, so from /story, /values or
-  // /faq (a different page than home) it silently does nothing instead
-  // of returning to "/" first. Same fix homePath already uses below.
+  // scrolls within the current document, so from /about or /faq (a
+  // different page than home) it silently does nothing instead of
+  // returning to "/" first. Same fix homePath already uses below.
   const homeHref = basePath || "/";
 
   const links = [
     { label: "Why we exist", href: `${homeHref}#the-question` },
     { label: "What we're building", href: `${homeHref}#today` },
-    { label: "Our story", href: `${basePath}/story` },
-    { label: "Our values", href: `${basePath}/values` },
+    {
+      label: "About Us",
+      children: [
+        { label: "Our story", href: `${basePath}/about#story` },
+        { label: "Our values", href: `${basePath}/about#values` },
+        { label: "Contact", href: `${basePath}/about#contact` },
+      ],
+    },
     { label: "FAQ", href: `${basePath}/faq` },
-    { label: "Contact", href: `${homeHref}#contact` },
   ];
 
   const isHome = page === "home";
@@ -103,8 +98,13 @@ export default function Edition({ legacy = false, page = "home" }) {
             <Invitation onJoin={openWaitlist} />
           </>
         )}
-        {page === "story" && <FounderStory />}
-        {page === "values" && <Values />}
+        {page === "about" && (
+          <>
+            <FounderStory />
+            <Values />
+            <AboutContact />
+          </>
+        )}
         {page === "faq" && <Faq />}
       </main>
 

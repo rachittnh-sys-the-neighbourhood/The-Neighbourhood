@@ -24,10 +24,11 @@ const page = (element) => <Suspense fallback={null}>{element}</Suspense>;
 export default function App() {
   return (
     <Routes>
-      {/* The live site. */}
+      {/* The live site. Story, values and contact used to be their own
+          routes; they're sections on one merged /about page now, so the
+          nav's "About Us" dropdown can link straight to each. */}
       <Route path="/" element={page(<Edition legacy page="home" />)} />
-      <Route path="/story" element={page(<Edition legacy page="story" />)} />
-      <Route path="/values" element={page(<Edition legacy page="values" />)} />
+      <Route path="/about" element={page(<Edition legacy page="about" />)} />
       <Route path="/faq" element={page(<Edition legacy page="faq" />)} />
 
       {/* Product surfaces. */}
@@ -45,22 +46,28 @@ export default function App() {
           /type; that route is gone too now, so they go straight to the
           live site instead of bouncing through it. */}
       <Route path="/v2" element={<Navigate to="/" replace />} />
-      <Route path="/v2/story" element={<Navigate to="/story" replace />} />
-      <Route path="/v2/values" element={<Navigate to="/values" replace />} />
+      <Route path="/v2/story" element={<Navigate to="/about#story" replace />} />
+      <Route path="/v2/values" element={<Navigate to="/about#values" replace />} />
       <Route path="/v2/faq" element={<Navigate to="/faq" replace />} />
       <Route path="/reference/*" element={<Navigate to="/" replace />} />
 
       {/* Legacy redirects. */}
       <Route path="/next" element={<Navigate to="/" replace />} />
-      <Route path="/next/story" element={<Navigate to="/story" replace />} />
-      <Route path="/next/values" element={<Navigate to="/values" replace />} />
+      <Route path="/next/story" element={<Navigate to="/about#story" replace />} />
+      <Route path="/next/values" element={<Navigate to="/about#values" replace />} />
       <Route path="/next/faq" element={<Navigate to="/faq" replace />} />
       <Route path="/v1" element={<Navigate to="/" replace />} />
       <Route path="/v3" element={<Navigate to="/" replace />} />
       <Route path="/type" element={<Navigate to="/" replace />} />
-      <Route path="/type/story" element={<Navigate to="/story" replace />} />
-      <Route path="/type/values" element={<Navigate to="/values" replace />} />
+      <Route path="/type/story" element={<Navigate to="/about#story" replace />} />
+      <Route path="/type/values" element={<Navigate to="/about#values" replace />} />
       <Route path="/type/faq" element={<Navigate to="/faq" replace />} />
+
+      {/* /story and /values were their own routes; now sections on
+          /about (see the live-site block above). */}
+      <Route path="/story" element={<Navigate to="/about#story" replace />} />
+      <Route path="/values" element={<Navigate to="/about#values" replace />} />
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
