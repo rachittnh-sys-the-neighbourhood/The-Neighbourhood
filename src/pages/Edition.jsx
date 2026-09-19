@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavbarV3 from "../components/v3/NavbarV3.jsx";
 import FooterV3 from "../components/v3/FooterV3.jsx";
 import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
@@ -49,22 +49,47 @@ export default function Edition({ legacy = false, page = "home" }) {
   // its internal links stay inside it while browsing.
   const basePath = legacy ? "" : "/type";
 
+  // Anchors need a real path before the "#", not just the fragment —
+  // basePath is "" for legacy, which would otherwise produce a bare
+  // "#the-question" href. A bare fragment never navigates; it only
+  // scrolls within the current document, so from /story, /values or
+  // /faq (a different page than home) it silently does nothing instead
+  // of returning to "/" first. Same fix homePath already uses below.
+  const homeHref = basePath || "/";
+
   const links = [
-    { label: "Why we exist", href: `${basePath}#the-question` },
-    { label: "What we're building", href: `${basePath}#today` },
+    { label: "Why we exist", href: `${homeHref}#the-question` },
+    { label: "What we're building", href: `${homeHref}#today` },
     { label: "Our story", href: `${basePath}/story` },
     { label: "Our values", href: `${basePath}/values` },
     { label: "FAQ", href: `${basePath}/faq` },
-    { label: "Contact", href: `${basePath}#contact` },
+    { label: "Contact", href: `${homeHref}#contact` },
   ];
 
   const isHome = page === "home";
+
+  // The nav's anchor links (#the-question, #today, #contact) force a real
+  // navigation from other routes, not just an in-page jump — but Edition
+  // is lazy-loaded, so on a fresh page load the browser's one-shot native
+  // "scroll to #fragment" fires before the chunk has even arrived, let
+  // alone rendered the target section. By the time this effect runs post
+  // mount, every section (including the footer, which is always present)
+  // genuinely exists, so it re-does the scroll the browser gave up on.
+  // A same-page click (already on "/") never remounts Edition, so this
+  // effect doesn't run for it — but the browser's own native scroll
+  // already handles that case correctly, since the element was already
+  // there.
+  useEffect(() => {
+    if (!window.location.hash) return;
+    const target = document.getElementById(window.location.hash.slice(1));
+    target?.scrollIntoView();
+  }, []);
 
   return (
     <div
       className={`${legacy ? "edition-legacy" : ""} min-h-screen overflow-x-clip bg-cream-peach`}
     >
-      <NavbarV3 onJoin={openWaitlist} links={links} homePath={basePath || "/"} />
+      <NavbarV3 onJoin={openWaitlist} links={links} homePath={homeHref} />
 
       <main className={isHome ? undefined : "pt-3xl"}>
         {isHome && (
