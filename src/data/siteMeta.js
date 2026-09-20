@@ -19,6 +19,11 @@ export const SITE_DESCRIPTION =
 
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/logo.png`;
 
+// Used as Article JSON-LD's datePublished/dateModified wherever a page
+// has no other real date to point to — the date this content actually
+// became indexable, not a fabricated earlier "written on" date.
+export const CONTENT_LAUNCH_DATE = "2026-09-20";
+
 export const ORG_EMAIL = "founders@theneighbourhood.co.in";
 export const ORG_LOCATION = "Gurugram, Haryana, India";
 export const ORG_LINKEDIN = "https://www.linkedin.com/company/theneighbourhud/";

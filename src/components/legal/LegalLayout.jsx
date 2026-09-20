@@ -15,12 +15,21 @@ import Seo from "../seo/Seo.jsx";
  * column. One layout so the four documents can never drift apart
  * visually, and so a fifth (e.g. a Refund Policy) is a five-minute add.
  */
-export default function LegalLayout({ title, description, path, sections = [], children }) {
+export default function LegalLayout({
+  title,
+  description,
+  metaDescription,
+  path,
+  sections = [],
+  children,
+}) {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-cream-peach">
-      {path && <Seo title={title} description={description} path={path} />}
+      {path && (
+        <Seo title={title} description={metaDescription || description} path={path} />
+      )}
 
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} />
 

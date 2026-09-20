@@ -115,23 +115,63 @@ async function main() {
     const browser = await launchBrowser();
     const page = await browser.newPage();
 
+    // Every route (including the noindex scaffolds and the Onboarding
+    // fallback at /today) renders exactly one <h1> once React has
+    // actually mounted real content — every lazy-loaded page component
+    // does, and Suspense's fallback={null} renders nothing while a
+    // chunk is still loading. Waiting for it (rather than just the
+    // <meta name="description"> tag <Seo> sets, which is cheap enough
+    // that it can land before the page's own content has painted,
+    // especially on a slower/first-navigation cold start) is what
+    // actually proves the snapshot has real content, not an empty
+    // shell. A build-machine-speed-dependent race here previously
+    // shipped an unrendered shell for "/" and "/activities" in
+    // production despite this script logging success for both.
+    const MIN_CONTENT_LENGTH = 500;
+
     for (const route of ROUTES) {
       const url = `${BASE_URL}${route}`;
-      await page.goto(url, { waitUntil: "load", timeout: 30000 });
+      let html;
+      let lastError;
 
-      // <Seo>'s effect runs on mount, synchronously fast — but give
-      // React one tick, plus wait for the description tag it creates,
-      // as a concrete signal the route actually rendered rather than
-      // snapshotting mid-mount.
-      await page
-        .waitForFunction(() => !!document.querySelector('meta[name="description"]'), {
-          timeout: 5000,
-        })
-        .catch(() => {
-          console.warn(`  (no <meta name="description"> detected for ${route} — snapshotting anyway)`);
-        });
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          await page.goto(url, { waitUntil: "load", timeout: 30000 });
+          await page.waitForFunction(
+            () => !!document.getElementById("root")?.querySelector("h1"),
+            { timeout: 15000 }
+          );
+          // <Seo>'s effect commits in the same pass as the page's own
+          // content, so this should already be satisfied — a short
+          // extra wait, not a second independent race.
+          await page
+            .waitForFunction(() => !!document.querySelector('meta[name="description"]'), {
+              timeout: 5000,
+            })
+            .catch(() => {
+              console.warn(`  (no <meta name="description"> detected for ${route} on attempt ${attempt})`);
+            });
 
-      const html = await page.content();
+          const rootLength = await page.evaluate(
+            () => document.getElementById("root")?.innerHTML?.length || 0
+          );
+          if (rootLength < MIN_CONTENT_LENGTH) {
+            throw new Error(`root content suspiciously short (${rootLength} chars)`);
+          }
+
+          html = await page.content();
+          break;
+        } catch (err) {
+          lastError = err;
+          console.warn(`  attempt ${attempt}/3 failed for ${route}: ${err.message}`);
+        }
+      }
+
+      if (!html) {
+        throw new Error(
+          `Failed to prerender ${route} after 3 attempts — refusing to ship an empty/broken snapshot. Last error: ${lastError?.message}`
+        );
+      }
 
       const outDir = route === "/" ? DIST_DIR : path.join(DIST_DIR, route.slice(1));
       fs.mkdirSync(outDir, { recursive: true });

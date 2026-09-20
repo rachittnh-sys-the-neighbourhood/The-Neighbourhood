@@ -905,18 +905,35 @@ export default function TodayPage() {
     setFollowUpVisible(false);
   };
 
+  // <Seo noindex> below is what keeps this whole route out of search —
+  // but it lived only past this check, inside the "has a saved profile"
+  // branch. Every first-time visitor (no localStorage yet) and every
+  // crawler (no localStorage at all) hits the Onboarding branch instead,
+  // which never rendered <Seo> at all, so what they actually received
+  // had no noindex tag, no canonical, nothing. Rendering it here too —
+  // identically, since both branches are still genuinely the /today
+  // route — closes that gap regardless of which branch renders.
+  const seo = (
+    <Seo
+      title="Today"
+      description="A calm daily companion for the small everyday moments that help your child grow — a preview of The Neighbourhood's guidance app."
+      path="/today"
+      noindex
+    />
+  );
+
   if (!profile) {
-    return <Onboarding onSave={handleOnboardingSave} />;
+    return (
+      <>
+        {seo}
+        <Onboarding onSave={handleOnboardingSave} />
+      </>
+    );
   }
 
   return (
     <div className="overflow-x-clip bg-surface-cream min-h-screen">
-      <Seo
-        title="Today"
-        description="A calm daily companion for the small everyday moments that help your child grow — a preview of The Neighbourhood's guidance app."
-        path="/today"
-        noindex
-      />
+      {seo}
 
       {/* Logo now genuinely navigates to "/" (the marketing homepage),
           a different route from "/today" — no custom handler needed. */}

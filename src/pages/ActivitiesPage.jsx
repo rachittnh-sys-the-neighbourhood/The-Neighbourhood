@@ -7,11 +7,21 @@ import { Container } from "../components/ui/Section.jsx";
 import Card from "../components/ui/Card.jsx";
 import AccentLabel from "../components/ui/AccentLabel.jsx";
 import Seo from "../components/seo/Seo.jsx";
+import { buildArticle } from "../components/seo/schema.js";
 import ContentPageMeta from "../components/content/ContentPageMeta.jsx";
 import activities from "../data/activityLibrary.json";
+import { CONTENT_LAUNCH_DATE } from "../data/siteMeta.js";
 
 const DESCRIPTION =
   "A library of age-specific activities for children from birth to seven years, organised by age band and developmental area — gross motor, fine motor, language and communication, cognitive, social-emotional, sensory, and self-care.";
+
+// Shorter than DESCRIPTION on purpose — DESCRIPTION is also the visible
+// intro paragraph below, but a search-result snippet truncates around
+// ~155-160 characters.
+const META_DESCRIPTION =
+  "A library of age-specific activities for children birth to seven, organised by age and developmental area — motor, language, cognitive, social-emotional.";
+
+const LAST_UPDATED = "2026-09-20";
 
 // Grouped once, not per render — 1,149 rows across 28 age bands.
 function groupByAgeBand(list) {
@@ -104,7 +114,18 @@ export default function ActivitiesPage() {
 
   return (
     <div className="min-h-screen overflow-x-clip bg-cream-peach">
-      <Seo title="Activities by age, birth to seven years" description={DESCRIPTION} path="/activities" />
+      <Seo
+        title="Activities by age, birth to seven years"
+        description={META_DESCRIPTION}
+        path="/activities"
+        jsonLd={buildArticle({
+          path: "/activities",
+          headline: "Activities by age, birth to seven years",
+          description: META_DESCRIPTION,
+          datePublished: CONTENT_LAUNCH_DATE,
+          dateModified: LAST_UPDATED,
+        })}
+      />
 
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} />
 
@@ -120,7 +141,7 @@ export default function ActivitiesPage() {
 
           <ContentPageMeta
             className="mx-auto mt-xl max-w-measure-xl"
-            lastUpdated="2026-09-20"
+            lastUpdated={LAST_UPDATED}
             source={`${activities.length} activities across ${grouped.length} age bands, from The Neighbourhood's activity library.`}
           />
 
