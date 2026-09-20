@@ -24,7 +24,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright";
+import { chromium } from "playwright-core";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST_DIR = path.join(__dirname, "../dist");
@@ -52,6 +52,26 @@ const ROUTES = [
   "/cookie-policy",
   "/disclaimer",
 ];
+
+// Vercel's build container is a minimal Amazon-Linux image: it's missing
+// the desktop-Linux shared libraries (libnspr4.so, libnss3.so, ...) that
+// Playwright's own downloaded Chromium is linked against, so that binary
+// can't launch there at all. @sparticuz/chromium ships a Chromium build
+// packaged specifically for that kind of restricted serverless/build
+// container (self-contained, no missing-.so problem) — use it there, via
+// playwright-core, and fall back to Playwright's own Chromium (installed
+// locally by scripts/postinstall.mjs) everywhere else.
+async function launchBrowser() {
+  if (process.env.VERCEL) {
+    const { default: sparticuzChromium } = await import("@sparticuz/chromium");
+    return chromium.launch({
+      args: sparticuzChromium.args,
+      executablePath: await sparticuzChromium.executablePath(),
+      headless: true,
+    });
+  }
+  return chromium.launch({ args: ["--no-sandbox"] });
+}
 
 function waitForServer(url, timeoutMs = 30000) {
   const start = Date.now();
@@ -92,10 +112,7 @@ async function main() {
   try {
     await waitForServer(BASE_URL);
 
-    // --no-sandbox: needed in most CI/build-container environments
-    // (including Vercel's build step), which typically can't grant the
-    // namespace permissions Chromium's sandbox wants.
-    const browser = await chromium.launch({ args: ["--no-sandbox"] });
+    const browser = await launchBrowser();
     const page = await browser.newPage();
 
     for (const route of ROUTES) {
