@@ -16,6 +16,7 @@ const OneDayPage = lazy(() => import("./pages/OneDayPage.jsx"));
 const PillarPage = lazy(() => import("./pages/PillarPage.jsx"));
 const ChildDevelopmentPage = lazy(() => import("./pages/ChildDevelopmentPage.jsx"));
 const ActivitiesPage = lazy(() => import("./pages/ActivitiesPage.jsx"));
+const ActivityAgeGroupPage = lazy(() => import("./pages/ActivityAgeGroupPage.jsx"));
 const EditorialPolicyPage = lazy(() => import("./pages/EditorialPolicyPage.jsx"));
 
 // Routes with no founder-approved content yet — see ScaffoldPage.jsx.
@@ -58,6 +59,7 @@ export default function App() {
       />
       <Route path="/child-development" element={page(<ChildDevelopmentPage />)} />
       <Route path="/activities" element={page(<ActivitiesPage />)} />
+      <Route path="/activities/:ageGroup" element={page(<ActivityAgeGroupPage />)} />
       <Route path="/editorial-policy" element={page(<EditorialPolicyPage />)} />
 
       {/* No founder-approved content yet — noindex, excluded from the

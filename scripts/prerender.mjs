@@ -25,6 +25,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
+import ACTIVITY_AGE_GROUPS from "../src/data/activityAgeGroups.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST_DIR = path.join(__dirname, "../dist");
@@ -40,6 +41,7 @@ const ROUTES = [
   "/parenting-space-gurugram",
   "/child-development",
   "/activities",
+  ...ACTIVITY_AGE_GROUPS.map((g) => `/activities/${g.slug}`),
   "/editorial-policy",
   "/today",
   "/day",
