@@ -7,6 +7,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import ACTIVITY_AGE_GROUPS from "../src/data/activityAgeGroups.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = "https://www.theneighbourhood.co.in";
@@ -22,6 +23,11 @@ const ROUTES = [
   { path: "/parenting-space-gurugram", changefreq: "monthly", priority: "0.8" },
   { path: "/child-development", changefreq: "monthly", priority: "0.7" },
   { path: "/activities", changefreq: "monthly", priority: "0.7" },
+  ...ACTIVITY_AGE_GROUPS.map((g) => ({
+    path: `/activities/${g.slug}`,
+    changefreq: "monthly",
+    priority: "0.6",
+  })),
   { path: "/editorial-policy", changefreq: "yearly", priority: "0.3" },
   { path: "/day", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy-policy", changefreq: "yearly", priority: "0.2" },

@@ -11,6 +11,7 @@ import { buildArticle } from "../components/seo/schema.js";
 import ContentPageMeta from "../components/content/ContentPageMeta.jsx";
 import stages from "../data/timelineSummary.js";
 import journeyStages from "../data/journeyStages.json";
+import ACTIVITY_AGE_GROUPS from "../data/activityAgeGroups.js";
 import { CONTENT_LAUNCH_DATE } from "../data/siteMeta.js";
 
 const DESCRIPTION =
@@ -64,6 +65,7 @@ export default function ChildDevelopmentPage() {
           <div className="mx-auto mt-3xl flex max-w-measure-xl flex-col gap-2xl">
             {stages.map((stage) => {
               const detail = journeyStages.find((s) => s.id === stage.id);
+              const activityGroup = ACTIVITY_AGE_GROUPS.find((g) => g.stageId === stage.id);
               return (
                 <Card key={stage.id} as="section" surface="white" elevated>
                   <AccentLabel>{stage.label}</AccentLabel>
@@ -79,6 +81,14 @@ export default function ChildDevelopmentPage() {
                       </div>
                     ))}
                   </div>
+                  {activityGroup && (
+                    <Link
+                      to={`/activities/${activityGroup.slug}`}
+                      className="type-caption mt-lg inline-block underline hover:text-warm-orange"
+                    >
+                      See activities for {activityGroup.label} &rarr;
+                    </Link>
+                  )}
                 </Card>
               );
             })}

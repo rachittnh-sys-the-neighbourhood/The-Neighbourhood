@@ -10,6 +10,7 @@ import Seo from "../components/seo/Seo.jsx";
 import { buildArticle } from "../components/seo/schema.js";
 import ContentPageMeta from "../components/content/ContentPageMeta.jsx";
 import activities from "../data/activityLibrary.json";
+import ACTIVITY_AGE_GROUPS from "../data/activityAgeGroups.js";
 import { CONTENT_LAUNCH_DATE } from "../data/siteMeta.js";
 
 const DESCRIPTION =
@@ -144,6 +145,21 @@ export default function ActivitiesPage() {
             lastUpdated={LAST_UPDATED}
             source={`${activities.length} activities across ${grouped.length} age bands, from The Neighbourhood's activity library.`}
           />
+
+          <nav
+            aria-label="Browse activities by age"
+            className="mx-auto mt-xl flex max-w-measure-xl flex-wrap justify-center gap-sm"
+          >
+            {ACTIVITY_AGE_GROUPS.map((group) => (
+              <Link
+                key={group.slug}
+                to={`/activities/${group.slug}`}
+                className="type-caption rounded-pill border border-lavender-mist px-md py-xs text-deep-purple transition-colors duration-200 hover:border-warm-orange hover:text-warm-orange"
+              >
+                {group.label}
+              </Link>
+            ))}
+          </nav>
 
           <div className="mx-auto mt-3xl flex max-w-measure-xl flex-col gap-lg">
             {grouped.map((group, i) => (
