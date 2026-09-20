@@ -17,6 +17,38 @@ import Values from "../components/v3/Values.jsx";
 import AboutContact from "../components/v3/AboutContact.jsx";
 import Faq from "../components/v3/Faq.jsx";
 
+import Seo from "../components/seo/Seo.jsx";
+import { buildOrganization, buildWebSite, buildAboutPage, buildFAQPage } from "../components/seo/schema.js";
+import FAQS from "../data/faqs.js";
+import { SITE_DESCRIPTION } from "../data/siteMeta.js";
+
+const PAGE_SEO = {
+  home: {
+    title: "A village for families raising children aged 0–7",
+    description: SITE_DESCRIPTION,
+    path: "/",
+    jsonLd: [buildOrganization(), buildWebSite()],
+  },
+  about: {
+    title: "About The Neighbourhood",
+    description:
+      "The founders' story, the values The Neighbourhood is built on, and how to reach us — Sakshi and Rachit, building the village they couldn't find for their own children in Gurugram.",
+    path: "/about",
+    jsonLd: buildAboutPage({
+      path: "/about",
+      name: "About The Neighbourhood",
+      description: SITE_DESCRIPTION,
+    }),
+  },
+  faq: {
+    title: "Frequently asked questions",
+    description:
+      "Honest answers to what prospective families ask most about The Neighbourhood — location, cost, who's behind it, and what joining the waitlist actually means.",
+    path: "/faq",
+    jsonLd: buildFAQPage(FAQS),
+  },
+};
+
 /**
  * The site — home, about (story + values + contact, merged) and FAQ,
  * switched by `page`.
@@ -62,6 +94,7 @@ export default function Edition({ legacy = false, page = "home" }) {
   ];
 
   const isHome = page === "home";
+  const seo = PAGE_SEO[page];
 
   // The nav's anchor links (#the-question, #today, #contact) force a real
   // navigation from other routes, not just an in-page jump — but Edition
@@ -84,6 +117,8 @@ export default function Edition({ legacy = false, page = "home" }) {
     <div
       className={`${legacy ? "edition-legacy" : ""} min-h-screen overflow-x-clip bg-cream-peach`}
     >
+      {seo && <Seo {...seo} />}
+
       <NavbarV3 onJoin={openWaitlist} links={links} homePath={homeHref} />
 
       <main className={isHome ? undefined : "pt-3xl"}>

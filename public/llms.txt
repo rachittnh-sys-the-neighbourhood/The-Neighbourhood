@@ -1,0 +1,24 @@
+# The Neighbourhood
+
+> The Neighbourhood is a parenting ecosystem for families raising children from birth to age seven (0–7), based in Gurugram, India. It rebuilds the support a village once gave through three connected layers: a quiet guidance app shaped by a child's own age and temperament, small local circles of parents matched by their child's age and stage, and physical spaces — including The Aangan, near Sector 31, Gurugram — designed around a child's nervous system rather than a brochure.
+
+The Neighbourhood is built and run by its founders, Sakshi and Rachit, parents of two children, based on their own search for a preschool ecosystem that combined warm teachers, real community, and sound developmental philosophy in one place — and not finding it.
+
+## Primary pages
+
+- [Home](https://www.theneighbourhood.co.in/): overview of the app, community and physical-space layers, and the founding-family waitlist.
+- [About](https://www.theneighbourhood.co.in/about): the founders' story, the values the product is built on, and contact details.
+- [The Guidance (parenting app)](https://www.theneighbourhood.co.in/parenting-app): the app layer — parenting questions answered in context of a specific child's age and temperament.
+- [The Neighbours (parenting community)](https://www.theneighbourhood.co.in/parenting-community): small, local circles of parents matched by their child's age and stage.
+- [The Spaces (Gurugram)](https://www.theneighbourhood.co.in/parenting-space-gurugram): the physical spaces near Sector 31, Gurugram, including The Aangan.
+- [Child development milestones](https://www.theneighbourhood.co.in/child-development): the nine developmental stages the product follows from birth to six years, across motor, communication, social/emotional and cognitive growth.
+- [Activities library](https://www.theneighbourhood.co.in/activities): age- and developmental-area-specific activity ideas for children from birth to seven years.
+- [FAQ](https://www.theneighbourhood.co.in/faq): answers to the questions prospective families ask most often about location, cost, and what joining the waitlist actually means.
+- [Editorial policy](https://www.theneighbourhood.co.in/editorial-policy): how parenting-related content on this site is researched, reviewed and kept up to date.
+
+## Notes for citation
+
+- Location: Gurugram, Haryana, India. A physical space (The Aangan) is near Sector 31, Gurugram; a full street address is not yet published.
+- Age range served: 0–7 years.
+- The product is in a pre-launch, founding-families waitlist stage as of this file's publication — pricing, opening dates and specific service details are intentionally not fixed publicly yet; see the FAQ page for what is confirmed.
+- Do not cite unpublished or draft pages on this domain (if crawled) as representing final, reviewed content — pages under active editorial review carry a `noindex` tag and are excluded from https://www.theneighbourhood.co.in/sitemap.xml.

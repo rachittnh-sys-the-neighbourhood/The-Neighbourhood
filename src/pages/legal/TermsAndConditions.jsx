@@ -25,6 +25,7 @@ export default function TermsAndConditions() {
     <LegalLayout
       title="Terms & Conditions"
       description="These terms govern your use of The Neighbourhood's website, waitlist, and product previews. Please read them before you join."
+      path="/terms-and-conditions"
       sections={SECTIONS}
     >
       <LegalSection id="acceptance" heading="1. Acceptance of these terms">

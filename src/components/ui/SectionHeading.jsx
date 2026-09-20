@@ -33,6 +33,12 @@ export default function SectionHeading({
   // this stays a deliberate choice per section rather than a global
   // font swap; see the callers that pass it for which ones qualify.
   serif = false,
+  // "h2" everywhere a section opens partway down an existing page (the
+  // overwhelming majority of callers) — "h1" only for the handful that
+  // are a whole page's own top-of-page heading (see FounderStory, Faq),
+  // where an h2 here would leave that page with no h1 at all. Same
+  // classes either way, so this never changes how it looks.
+  as: Tag = "h2",
 }) {
   const { ref, inView } = useScrollReveal(0.25);
   const centered = align === "center";
@@ -48,7 +54,7 @@ export default function SectionHeading({
         </AccentLabel>
       )}
 
-      <h2
+      <Tag
         className={`reveal ${inView ? "in-view" : ""} type-section-heading text-deep-purple`}
         style={
           serif
@@ -64,7 +70,7 @@ export default function SectionHeading({
         data-delay="1"
       >
         {title}
-      </h2>
+      </Tag>
 
       {lead && (
         <p

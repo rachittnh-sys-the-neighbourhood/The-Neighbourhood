@@ -23,6 +23,7 @@ export default function PrivacyPolicy() {
     <LegalLayout
       title="Privacy Policy"
       description="This policy explains what information The Neighbourhood collects when you join our waitlist or try our early product previews, why we collect it, and what choices you have."
+      path="/privacy-policy"
       sections={SECTIONS}
     >
       <LegalSection id="who-we-are" heading="1. Who we are">
