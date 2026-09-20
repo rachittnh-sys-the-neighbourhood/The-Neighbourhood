@@ -5,6 +5,7 @@ import WaitlistDialogV3 from "../v3/WaitlistDialogV3.jsx";
 import AccentLabel from "../ui/AccentLabel.jsx";
 import { Container } from "../ui/Section.jsx";
 import { LEGAL_META } from "../../data/legalMeta.js";
+import Seo from "../seo/Seo.jsx";
 
 /**
  * Shared chrome for all four legal pages (Privacy Policy, Terms &
@@ -14,11 +15,13 @@ import { LEGAL_META } from "../../data/legalMeta.js";
  * column. One layout so the four documents can never drift apart
  * visually, and so a fifth (e.g. a Refund Policy) is a five-minute add.
  */
-export default function LegalLayout({ title, description, sections = [], children }) {
+export default function LegalLayout({ title, description, path, sections = [], children }) {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-cream-peach">
+      {path && <Seo title={title} description={description} path={path} />}
+
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} />
 
       <main className="pt-3xl">

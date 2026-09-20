@@ -4,6 +4,7 @@ import FooterV3 from "../components/v3/FooterV3.jsx";
 import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
 import useScrollReveal from "../components/useScrollReveal.js";
 import journeyStages from "../data/journeyStages.json";
+import Seo from "../components/seo/Seo.jsx";
 import aanganSpace from "../assets/aangan-space.jpg";
 import neighboursCircle from "../assets/neighbours-circle.jpg";
 import guidancePhone from "../assets/guidance-phone.jpg";
@@ -153,6 +154,12 @@ export default function OneDayPage() {
 
   return (
     <div className="overflow-x-clip bg-surface-cream min-h-screen">
+      <Seo
+        title="One day, lived"
+        description="Raising a child was never meant to be done alone — a walk through one ordinary day inside The Neighbourhood, from a 2am search to the friends who become family."
+        path="/day"
+      />
+
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} />
 
       {/* HERO — orientation, not intrigue. Headline is final. One photograph,

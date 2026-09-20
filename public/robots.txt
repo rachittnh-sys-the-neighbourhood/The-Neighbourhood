@@ -1,0 +1,32 @@
+# The Neighbourhood — robots.txt
+# Default: allow everything. Pages not yet ready to be indexed carry
+# their own <meta name="robots" content="noindex"> instead of being
+# blocked here — that keeps them crawlable (so once real content lands,
+# no robots.txt change is needed) while keeping them out of search
+# results and out of sitemap.xml in the meantime.
+
+User-agent: *
+Allow: /
+
+# Explicitly named so a future stricter default here can't accidentally
+# catch them: standard search crawlers, and the crawlers behind AI
+# assistant citations/answers.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://www.theneighbourhood.co.in/sitemap.xml

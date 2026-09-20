@@ -7,6 +7,7 @@ import useChildProfile, { stageIdForDob } from "../components/today/useChildProf
 import useDailyMoments, { todayKey } from "../components/today/useDailyMoments.js";
 import useCompanionMeta from "../components/today/useCompanionMeta.js";
 import journeyStages from "../data/journeyStages.json";
+import Seo from "../components/seo/Seo.jsx";
 
 const REASSURANCE =
   "You do not have to make today perfect. A few present minutes are enough.";
@@ -910,6 +911,13 @@ export default function TodayPage() {
 
   return (
     <div className="overflow-x-clip bg-surface-cream min-h-screen">
+      <Seo
+        title="Today"
+        description="A calm daily companion for the small everyday moments that help your child grow — a preview of The Neighbourhood's guidance app."
+        path="/today"
+        noindex
+      />
+
       {/* Logo now genuinely navigates to "/" (the marketing homepage),
           a different route from "/today" — no custom handler needed. */}
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} showJoin={false} />

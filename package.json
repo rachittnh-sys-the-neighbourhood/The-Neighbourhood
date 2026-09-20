@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/gen-sitemap.mjs && node scripts/prerender.mjs",
+    "build:vite-only": "vite build",
     "preview": "vite preview",
-    "gen:timeline": "node scripts/gen-timeline-summary.mjs"
+    "gen:timeline": "node scripts/gen-timeline-summary.mjs",
+    "gen:sitemap": "node scripts/gen-sitemap.mjs",
+    "postinstall": "playwright install chromium"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.109.0",
@@ -20,6 +23,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.11",
     "@vitejs/plugin-react": "^4.3.1",
+    "playwright": "^1.63.0",
     "postcss": "^8.4.40",
     "tailwindcss": "^4.3.3",
     "vite": "^5.3.4"

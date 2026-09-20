@@ -20,6 +20,7 @@ export default function Disclaimer() {
     <LegalLayout
       title="Disclaimer"
       description="What The Neighbourhood's content is — and, just as importantly, what it isn't. Please read this alongside our Terms & Conditions."
+      path="/disclaimer"
       sections={SECTIONS}
     >
       <LegalSection id="general" heading="1. General information only">

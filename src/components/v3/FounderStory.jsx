@@ -24,6 +24,7 @@ export default function FounderStory() {
   return (
     <Section id="story" surface="off-white">
       <SectionHeading
+        as="h1"
         label="Our story"
         title="It started with a couple who couldn't find what their daughter needed."
         align="center"

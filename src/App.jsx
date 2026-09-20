@@ -11,6 +11,17 @@ const Edition = lazy(() => import("./pages/Edition.jsx"));
 const TodayPage = lazy(() => import("./pages/TodayPage.jsx"));
 const OneDayPage = lazy(() => import("./pages/OneDayPage.jsx"));
 
+// The three "What we're building" pillars, each with its own indexable
+// URL (see pages/PillarPage.jsx) — real, existing copy, not new content.
+const PillarPage = lazy(() => import("./pages/PillarPage.jsx"));
+const ChildDevelopmentPage = lazy(() => import("./pages/ChildDevelopmentPage.jsx"));
+const ActivitiesPage = lazy(() => import("./pages/ActivitiesPage.jsx"));
+const EditorialPolicyPage = lazy(() => import("./pages/EditorialPolicyPage.jsx"));
+
+// Routes with no founder-approved content yet — see ScaffoldPage.jsx.
+// noindex, and intentionally left out of scripts/gen-sitemap.mjs.
+const ScaffoldPage = lazy(() => import("./pages/ScaffoldPage.jsx"));
+
 // Legal pages. Top-level routes (not per-edition), so every surface of
 // the site — the main site, /today, /day — can link to one canonical
 // copy.
@@ -34,6 +45,59 @@ export default function App() {
       {/* Product surfaces. */}
       <Route path="/today" element={page(<TodayPage />)} />
       <Route path="/day" element={page(<OneDayPage />)} />
+
+      {/* The three pillars — real existing copy, own indexable URL each. */}
+      <Route path="/parenting-app" element={page(<PillarPage slug="parenting-app" />)} />
+      <Route
+        path="/parenting-community"
+        element={page(<PillarPage slug="parenting-community" />)}
+      />
+      <Route
+        path="/parenting-space-gurugram"
+        element={page(<PillarPage slug="parenting-space-gurugram" />)}
+      />
+      <Route path="/child-development" element={page(<ChildDevelopmentPage />)} />
+      <Route path="/activities" element={page(<ActivitiesPage />)} />
+      <Route path="/editorial-policy" element={page(<EditorialPolicyPage />)} />
+
+      {/* No founder-approved content yet — noindex, excluded from the
+          sitemap (see ScaffoldPage.jsx and scripts/gen-sitemap.mjs). */}
+      <Route
+        path="/workshops"
+        element={page(
+          <ScaffoldPage
+            title="Workshops"
+            description="Hands-on sessions for parents and children, coming to The Neighbourhood."
+          />
+        )}
+      />
+      <Route
+        path="/nutrition"
+        element={page(
+          <ScaffoldPage
+            title="Nutrition"
+            description="Nutrition guidance for children aged 0–7, coming to The Neighbourhood."
+          />
+        )}
+      />
+      <Route
+        path="/fatherhood"
+        element={page(
+          <ScaffoldPage
+            title="Fatherhood"
+            description="Guidance for fathers navigating the first years of parenting, coming to The Neighbourhood."
+          />
+        )}
+      />
+      <Route
+        path="/parent-guides"
+        element={page(
+          <ScaffoldPage
+            title="Parent guides"
+            description="In-depth guides for parents of children aged 0–7, coming to The Neighbourhood."
+          />
+        )}
+      />
 
       {/* Legal. */}
       <Route path="/privacy-policy" element={page(<PrivacyPolicy />)} />
