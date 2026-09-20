@@ -8,8 +8,9 @@ import AccentLabel from "../components/ui/AccentLabel.jsx";
 import Button from "../components/ui/Button.jsx";
 import BlobImage from "../components/ui/BlobImage.jsx";
 import Seo from "../components/seo/Seo.jsx";
-import { buildLocalBusiness } from "../components/seo/schema.js";
+import { buildLocalBusiness, buildArticle } from "../components/seo/schema.js";
 import PILLARS from "../data/pillars.js";
+import { CONTENT_LAUNCH_DATE } from "../data/siteMeta.js";
 
 /**
  * Shared layout for the three pillar pages (/parenting-app,
@@ -31,13 +32,19 @@ export default function PillarPage({ slug }) {
         name: `The Neighbourhood — ${pillar.eyebrow}`,
         description: pillar.body,
       })
-    : undefined;
+    : buildArticle({
+        path: `/${slug}`,
+        headline: pillar.title,
+        description: pillar.metaDescription || pillar.body,
+        datePublished: CONTENT_LAUNCH_DATE,
+        image: pillar.image.src,
+      });
 
   return (
     <div className="min-h-screen overflow-x-clip bg-cream-peach">
       <Seo
         title={pillar.title}
-        description={pillar.body}
+        description={pillar.metaDescription || pillar.body}
         path={`/${slug}`}
         image={pillar.image.src}
         jsonLd={jsonLd}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavbarV3 from "../components/v3/NavbarV3.jsx";
 import FooterV3 from "../components/v3/FooterV3.jsx";
 import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
@@ -19,10 +19,16 @@ import Seo from "../components/seo/Seo.jsx";
  */
 export default function ScaffoldPage({ title, description }) {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
+  // Read from the route rather than requiring App.jsx to pass a path
+  // prop per route — one fewer place the four scaffold URLs could drift
+  // out of sync with App.jsx's actual <Route path> values. Without this,
+  // <Seo>'s default path="/" gave every scaffold page a canonical link
+  // pointing at the homepage instead of itself.
+  const { pathname } = useLocation();
 
   return (
     <div className="min-h-screen overflow-x-clip bg-cream-peach">
-      <Seo title={title} description={description} noindex />
+      <Seo title={title} description={description} path={pathname} noindex />
 
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} />
 

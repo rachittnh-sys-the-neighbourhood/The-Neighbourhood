@@ -7,19 +7,41 @@ import { Container } from "../components/ui/Section.jsx";
 import Card from "../components/ui/Card.jsx";
 import AccentLabel from "../components/ui/AccentLabel.jsx";
 import Seo from "../components/seo/Seo.jsx";
+import { buildArticle } from "../components/seo/schema.js";
 import ContentPageMeta from "../components/content/ContentPageMeta.jsx";
 import stages from "../data/timelineSummary.js";
 import journeyStages from "../data/journeyStages.json";
+import { CONTENT_LAUNCH_DATE } from "../data/siteMeta.js";
 
 const DESCRIPTION =
   "The nine developmental stages The Neighbourhood follows from birth to six years, across motor, communication, social/emotional and cognitive growth — no percentiles, no rankings, no comparison to other children.";
+
+// Shorter than DESCRIPTION on purpose — DESCRIPTION is also the visible
+// intro paragraph below, but a search-result snippet gets truncated
+// around ~155-160 characters, so the meta tag uses its own copy rather
+// than reusing (and implicitly shortening) the on-page paragraph.
+const META_DESCRIPTION =
+  "The nine developmental stages The Neighbourhood follows from birth to six years — motor, communication, social/emotional and cognitive growth.";
+
+const LAST_UPDATED = "2026-09-20";
 
 export default function ChildDevelopmentPage() {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-cream-peach">
-      <Seo title="Child development milestones, birth to six years" description={DESCRIPTION} path="/child-development" />
+      <Seo
+        title="Child development milestones"
+        description={META_DESCRIPTION}
+        path="/child-development"
+        jsonLd={buildArticle({
+          path: "/child-development",
+          headline: "Child development milestones, birth to six years",
+          description: META_DESCRIPTION,
+          datePublished: CONTENT_LAUNCH_DATE,
+          dateModified: LAST_UPDATED,
+        })}
+      />
 
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} />
 
@@ -35,7 +57,7 @@ export default function ChildDevelopmentPage() {
 
           <ContentPageMeta
             className="mx-auto mt-xl max-w-measure-xl"
-            lastUpdated="2026-09-20"
+            lastUpdated={LAST_UPDATED}
             source="Milestones drawn from WHO and Indian Academy of Pediatrics developmental frameworks."
           />
 

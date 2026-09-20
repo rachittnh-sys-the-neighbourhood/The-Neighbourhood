@@ -24,15 +24,25 @@ import { SITE_DESCRIPTION } from "../data/siteMeta.js";
 
 const PAGE_SEO = {
   home: {
-    title: "A village for families raising children aged 0–7",
-    description: SITE_DESCRIPTION,
+    // Not shown anywhere on the page itself (the visible H1 is "Raising
+    // a child was never meant to be done alone.") — kept short enough
+    // that " | The Neighbourhood" doesn't push the <title> tag past the
+    // ~60-char guideline before search results start truncating it.
+    title: "A village for families raising kids 0–7",
+    // Not SITE_DESCRIPTION — that single dense paragraph is meant for
+    // JSON-LD/GEO consumption (still used as-is inside buildOrganization
+    // and buildWebSite below) and runs 450+ characters, far past where a
+    // search snippet truncates (~155-160 chars). This is the meta tag's
+    // own, shorter version of the same facts.
+    description:
+      "A parenting ecosystem for families raising children aged 0–7: a guidance app, local parent circles, and physical spaces in Gurugram.",
     path: "/",
     jsonLd: [buildOrganization(), buildWebSite()],
   },
   about: {
     title: "About The Neighbourhood",
     description:
-      "The founders' story, the values The Neighbourhood is built on, and how to reach us — Sakshi and Rachit, building the village they couldn't find for their own children in Gurugram.",
+      "The founders' story, values, and how to reach us — Sakshi and Rachit, building the village they couldn't find for their own children in Gurugram.",
     path: "/about",
     jsonLd: buildAboutPage({
       path: "/about",

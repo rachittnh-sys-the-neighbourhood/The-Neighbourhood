@@ -17,6 +17,7 @@ export default function CookiePolicy() {
     <LegalLayout
       title="Cookie Policy"
       description="A short, honest account of what this website stores on your device, and why — because we'd rather explain the two things we use than pad this page with cookies we don't."
+      metaDescription="A short, honest account of what this website stores on your device, and why — the two things we use, not padded out with cookies we don't."
       path="/cookie-policy"
       sections={SECTIONS}
     >

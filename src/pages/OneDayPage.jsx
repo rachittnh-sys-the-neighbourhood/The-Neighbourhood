@@ -5,6 +5,8 @@ import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
 import useScrollReveal from "../components/useScrollReveal.js";
 import journeyStages from "../data/journeyStages.json";
 import Seo from "../components/seo/Seo.jsx";
+import { buildArticle } from "../components/seo/schema.js";
+import { CONTENT_LAUNCH_DATE } from "../data/siteMeta.js";
 import aanganSpace from "../assets/aangan-space.jpg";
 import neighboursCircle from "../assets/neighbours-circle.jpg";
 import guidancePhone from "../assets/guidance-phone.jpg";
@@ -158,6 +160,13 @@ export default function OneDayPage() {
         title="One day, lived"
         description="Raising a child was never meant to be done alone — a walk through one ordinary day inside The Neighbourhood, from a 2am search to the friends who become family."
         path="/day"
+        jsonLd={buildArticle({
+          path: "/day",
+          headline: "One day, lived",
+          description:
+            "Raising a child was never meant to be done alone — a walk through one ordinary day inside The Neighbourhood, from a 2am search to the friends who become family.",
+          datePublished: CONTENT_LAUNCH_DATE,
+        })}
       />
 
       <NavbarV3 onJoin={() => setWaitlistOpen(true)} />
