@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import NavbarV3 from "../components/v3/NavbarV3.jsx";
 import FooterV3 from "../components/v3/FooterV3.jsx";
-import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
+import WaitlistDialogV3 from "../components/v3/LazyWaitlistDialog.jsx";
 import useScrollReveal from "../components/useScrollReveal.js";
 import journeyStages from "../data/journeyStages.json";
 import Seo from "../components/seo/Seo.jsx";

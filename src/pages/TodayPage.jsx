@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import NavbarV3 from "../components/v3/NavbarV3.jsx";
 import FooterV3 from "../components/v3/FooterV3.jsx";
-import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
+import WaitlistDialogV3 from "../components/v3/LazyWaitlistDialog.jsx";
 import OpeningGesture from "../components/today/OpeningGesture.jsx";
 import useChildProfile, { stageIdForDob } from "../components/today/useChildProfile.js";
 import useDailyMoments, { todayKey } from "../components/today/useDailyMoments.js";
