@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NavbarV3 from "../v3/NavbarV3.jsx";
 import FooterV3 from "../v3/FooterV3.jsx";
-import WaitlistDialogV3 from "../v3/WaitlistDialogV3.jsx";
+import WaitlistDialogV3 from "../v3/LazyWaitlistDialog.jsx";
 import AccentLabel from "../ui/AccentLabel.jsx";
 import { Container } from "../ui/Section.jsx";
 import { LEGAL_META } from "../../data/legalMeta.js";

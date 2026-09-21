@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import NavbarV3 from "../components/v3/NavbarV3.jsx";
 import FooterV3 from "../components/v3/FooterV3.jsx";
-import WaitlistDialogV3 from "../components/v3/WaitlistDialogV3.jsx";
+import WaitlistDialogV3 from "../components/v3/LazyWaitlistDialog.jsx";
 import { Container } from "../components/ui/Section.jsx";
 import Card from "../components/ui/Card.jsx";
 import AccentLabel from "../components/ui/AccentLabel.jsx";

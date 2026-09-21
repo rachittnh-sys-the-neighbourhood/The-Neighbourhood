@@ -1,4 +1,6 @@
+import { useEffect, useRef } from "react";
 import heroFamilyVideo from "../../assets/hero-family-video.mp4";
+import heroVideoPoster from "../../assets/hero-video-poster.jpg";
 import { Container } from "../ui/Section.jsx";
 import AccentLabel from "../ui/AccentLabel.jsx";
 import Button from "../ui/Button.jsx";
@@ -23,6 +25,26 @@ import Button from "../ui/Button.jsx";
  * both), matching the prior hero's behaviour.
  */
 export default function HeroV4({ onJoin, legacy = false }) {
+  const videoRef = useRef(null);
+
+  // A single onCanPlay JSX prop raced against `preload="metadata"`: when
+  // the video is already past canplay by the time React attaches the
+  // listener (e.g. served instantly from a warm cache), the event never
+  // fires and autoplay silently never starts. Checking readyState
+  // directly on mount covers that case; the event listener is the
+  // fallback for when the video genuinely isn't ready yet.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const tryPlay = () => video.play().catch(() => {});
+    if (video.readyState >= 3) {
+      tryPlay();
+      return;
+    }
+    video.addEventListener("canplay", tryPlay, { once: true });
+    return () => video.removeEventListener("canplay", tryPlay);
+  }, []);
+
   return (
     <header
       id="top"
@@ -183,17 +205,25 @@ export default function HeroV4({ onJoin, legacy = false }) {
 
           <div className="relative overflow-hidden rounded-rounded bg-light-amber">
             <video
+              ref={videoRef}
               src={heroFamilyVideo}
+              poster={heroVideoPoster}
               className="aspect-video w-full object-cover"
               aria-label="A warm glimpse of family life inside The Neighbourhood"
               autoPlay
               muted
               loop
               playsInline
-              preload="auto"
-              onCanPlay={(event) => {
-                event.currentTarget.play().catch(() => {});
-              }}
+              // Was "auto" — that tells the browser to eagerly prefetch
+              // the full 2.9MB file, competing with every other
+              // above-the-fold resource on first load. "metadata" still
+              // lets autoplay start as soon as enough has streamed in,
+              // but stops the browser front-loading the whole file
+              // before anything else gets a chance. The real poster
+              // frame above covers the gap either way. See the
+              // useEffect above for why autoplay itself no longer
+              // depends on this element's own onCanPlay prop.
+              preload="metadata"
             />
           </div>
 
