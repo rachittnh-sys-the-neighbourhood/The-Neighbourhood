@@ -51,10 +51,15 @@ export default function PrivacyPolicy() {
 
       <LegalSection id="information-we-collect" heading="2. Information we collect">
         <p>
-          We only collect information you choose to give us. We do not use
-          analytics, advertising, or tracking scripts on this website, and
-          we do not collect information passively about your browsing
-          across other sites.
+          Most of what we collect, you choose to give us directly. The one
+          exception: if you accept the consent banner shown on your first
+          visit, we use PostHog to see, in aggregate, which pages are
+          visited and where people drop off in the waitlist flow — see our{" "}
+          <Link to="/cookie-policy">Cookie Policy</Link> for exactly what
+          that does and does not include. We do not use advertising or
+          advertising-tracking scripts on this website, and we do not
+          collect information passively about your browsing across other
+          sites.
         </p>
         <p>
           <strong>When you join the waitlist</strong>, we ask for:
@@ -167,6 +172,12 @@ export default function PrivacyPolicy() {
             servers, which may log your IP address under their own privacy
             policies.
           </li>
+          <li>
+            <strong>PostHog</strong> — the analytics tool described in our{" "}
+            <Link to="/cookie-policy">Cookie Policy</Link>, used only if you
+            accept the consent banner, to understand page views and the
+            waitlist funnel in aggregate.
+          </li>
         </ul>
         <p>
           We may also disclose information if required to do so by law, or
@@ -233,6 +244,12 @@ export default function PrivacyPolicy() {
           <li>withdraw your consent to further processing; and</li>
           <li>stop contacting you about your waitlist status or our launch.</li>
         </ul>
+        <p>
+          For analytics specifically, you can decline or withdraw consent
+          directly in the consent banner or by clearing this site's local
+          storage — see our <Link to="/cookie-policy">Cookie Policy</Link>{" "}
+          Section 5 — with no need to email us.
+        </p>
         <p>
           To exercise any of these choices, email us at{" "}
           <a href={`mailto:${LEGAL_META.contactEmail}`}>{LEGAL_META.contactEmail}</a>{" "}

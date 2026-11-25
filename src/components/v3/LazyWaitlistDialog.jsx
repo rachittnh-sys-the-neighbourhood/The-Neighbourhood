@@ -1,4 +1,5 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
+import { trackEvent } from "../../lib/analytics.js";
 
 const WaitlistDialogV3 = lazy(() => import("./WaitlistDialogV3.jsx"));
 
@@ -13,6 +14,10 @@ const WaitlistDialogV3 = lazy(() => import("./WaitlistDialogV3.jsx"));
  * clicks "Join the Village", not on every page load.
  */
 export default function LazyWaitlistDialog({ open, onClose }) {
+  useEffect(() => {
+    if (open) trackEvent("waitlist_dialog_opened", { path: window.location.pathname });
+  }, [open]);
+
   if (!open) return null;
   return (
     <Suspense fallback={null}>

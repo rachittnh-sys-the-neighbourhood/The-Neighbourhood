@@ -16,8 +16,8 @@ export default function CookiePolicy() {
   return (
     <LegalLayout
       title="Cookie Policy"
-      description="A short, honest account of what this website stores on your device, and why — because we'd rather explain the two things we use than pad this page with cookies we don't."
-      metaDescription="A short, honest account of what this website stores on your device, and why — the two things we use, not padded out with cookies we don't."
+      description="A short, honest account of what this website stores on your device, and why — including the one analytics tool we run, and only with your consent."
+      metaDescription="A short, honest account of what this website stores on your device, and why — including the one analytics tool we run, and only with your consent."
       path="/cookie-policy"
       sections={SECTIONS}
     >
@@ -32,17 +32,20 @@ export default function CookiePolicy() {
 
       <LegalSection id="cookies-vs-storage" heading="2. Cookies vs. local storage">
         <p>
-          We do not set any first-party advertising or analytics cookies on
-          this website. We do not run Google Analytics, advertising
-          pixels, heat-mapping tools, or any other tracking script, and we
-          do not build advertising profiles from your visit.
+          We do not set any advertising cookies on this website, run
+          advertising pixels, use heat-mapping tools, or build advertising
+          profiles from your visit. As of version 1.2 of this policy, we do
+          run one analytics tool — PostHog — described in Section 4, and
+          only after you accept the consent banner shown on your first
+          visit.
         </p>
         <p>
-          The one thing we do store on your device is <strong>browser
+          The other thing we store on your device is <strong>browser
           local storage</strong> — a standard web technology, similar to a
           cookie but kept only on your device and never automatically sent
           to our servers with each request the way a cookie is. We use it
-          in exactly one place, described below.
+          in exactly one place, described below, plus to remember your
+          analytics choice from Section 5.
         </p>
       </LegalSection>
 
@@ -65,7 +68,19 @@ export default function CookiePolicy() {
 
       <LegalSection id="third-party" heading="4. Third-party services">
         <p>
-          This website loads typefaces from Google Fonts
+          <strong>PostHog</strong> — if you accept the consent banner, we
+          load PostHog to understand, in aggregate, which pages people
+          visit and where they drop off in the waitlist sign-up flow (for
+          example, opening the form, filling in a child's stage, and
+          submitting). PostHog sets its own analytics cookie/local-storage
+          identifier on this domain to do this. We have turned off session
+          recording — PostHog is not watching or recording your screen,
+          only the page views and the named events described above. We do
+          not use it for advertising, and we do not combine it with your
+          waitlist entry.
+        </p>
+        <p>
+          This website also loads typefaces from Google Fonts
           (fonts.googleapis.com). Loading a font is a request to that
           provider's servers, and like any web request it may let the
           provider see your IP address and browser details, and may set
@@ -85,33 +100,42 @@ export default function CookiePolicy() {
         <p>You can manage or remove what this site stores on your device at any time:</p>
         <ul>
           <li>
+            A banner asks for your choice on analytics (PostHog, Section 4)
+            the first time you visit. You can change your mind later by
+            clearing "site data" or "local storage" for this domain in your
+            browser's settings — the banner will ask again on your next
+            visit.
+          </li>
+          <li>
             Most browsers let you clear "site data" or "local storage" for
             a specific website from their settings or privacy panel — doing
             this for our domain will remove the preview data described in
-            Section 3.
+            Section 3, and your analytics choice above.
           </li>
           <li>
-            Because we do not set tracking cookies, there is no cookie
-            consent preference to manage beyond your browser's own cookie
-            settings, which you can use to block third-party cookies from
-            the font providers in Section 4 if you prefer.
+            You can also use your browser's own cookie settings to block
+            third-party cookies from the font providers in Section 4 if you
+            prefer.
           </li>
         </ul>
         <p>
           Blocking local storage entirely will not affect the waitlist
           form, but will prevent the <code>/today</code> and{" "}
           <code>/day</code> previews from remembering your child between
-          visits.
+          visits, and will cause the consent banner to reappear on every
+          visit.
         </p>
       </LegalSection>
 
       <LegalSection id="changes" heading="6. Changes to this policy">
         <p>
-          If we ever add analytics, advertising, or other tracking
-          technology, we will update this policy first and describe what we
-          added and why, rather than adding it silently. We will update the
-          "Last updated" date and version number at the top of this page
-          whenever we do.
+          We added PostHog analytics in version 1.2 of this policy (see
+          Section 4), and updated this page first to describe what we added
+          and why, consistent with what we said we'd do below. If we add
+          further analytics, advertising, or other tracking technology, we
+          will update this policy first and describe what we added and why,
+          rather than adding it silently. We will update the "Last updated"
+          date and version number at the top of this page whenever we do.
         </p>
       </LegalSection>
 
