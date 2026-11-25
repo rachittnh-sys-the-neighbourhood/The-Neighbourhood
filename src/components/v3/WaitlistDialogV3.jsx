@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase, isSupabaseConfigured } from "../../lib/supabaseClient.js";
+import { trackEvent } from "../../lib/analytics.js";
 import Button from "../ui/Button.jsx";
 import AccentLabel from "../ui/AccentLabel.jsx";
 import { Input, Select, Label, Hint, FieldError } from "../ui/Field.jsx";
@@ -67,6 +68,7 @@ export default function WaitlistDialogV3({ open, onClose }) {
     if (!childStage) return;
     setErrorMessage("");
     setJoinStep("parent");
+    trackEvent("waitlist_child_step_completed", { child_stage: childStage });
     window.setTimeout(() => inputRef.current?.focus(), 0);
   };
 
@@ -138,6 +140,11 @@ export default function WaitlistDialogV3({ open, onClose }) {
         totalSignups: totalSignups ?? 1,
       });
       setStatus("success");
+      trackEvent("waitlist_signup_completed", {
+        child_stage: childStage || null,
+        has_email: Boolean(trimmedEmail),
+        referred: Boolean(refId),
+      });
     } catch {
       setStatus("error");
       setErrorMessage("Something went wrong on our side. Please try again.");
